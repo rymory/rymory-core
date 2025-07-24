@@ -1,0 +1,167 @@
+packages:
+  - name: security
+    environment:
+        jwt_issuer : ${jwt_issuer}
+        root_account : ${root_account}
+        token_secret_key : ${token_secret_key}
+        token_root_secret_key : ${token_root_secret_key}
+        database_url : ${database_url}
+    functions:
+      - name: authenticate
+        limits:
+          timeout: 3000
+          memory: 128
+      - name: account
+        limits:
+          timeout: 3000
+          memory: 128
+      - name: role
+        limits:
+          timeout: 3000
+          memory: 128
+      - name: validation
+        limits:
+          timeout: 3000
+          memory: 128
+    # actions:
+    #   - name: authenticate
+    #     runtime: 'go:1.20' #runtime: 'go:default'
+    #   - name: account
+    #     runtime: 'go:1.20' #runtime: 'go:default'
+    #   - name: role
+    #     runtime: 'go:1.20' #runtime: 'go:default'
+    #   - name: validation
+    #     runtime: 'go:1.20' #runtime: 'go:default'
+    
+  - name: system
+    environment:
+        jwt_issuer : ${jwt_issuer}
+        root_account : ${root_account}
+        token_secret_key : ${token_secret_key}
+        token_root_secret_key : ${token_root_secret_key}
+        database_url : ${database_url}
+        SPACES_KEY: ${SPACES_KEY}
+        SPACES_SECRET: ${SPACES_SECRET}
+        SPACES_ENDPOINT: "${SPACES_ENDPOINT}"
+        SPACES_NAME: "${SPACES_NAME}"
+        VALID_API_URL: "${VALID_API_URL}"
+    functions:
+      - name: file
+        limits:
+          timeout: 3000
+          memory: 512
+      - name: init
+        limits:
+          timeout: 3000
+          memory: 128
+      - name: zombie
+        limits:
+          timeout: 3000
+          memory: 128
+      - name: project
+        limits:
+          timeout: 3000
+          memory: 128
+      - name: member
+        limits:
+          timeout: 3000
+          memory: 128
+      - name: space
+        limits:
+          timeout: 3000
+          memory: 512
+    actions:
+      - name: file
+        runtime: 'go:1.20' #runtime: 'go:default'
+    #   - name: init
+    #     runtime: 'go:1.20' #runtime: 'go:default'
+    #   - name: zombie
+    #     runtime: 'go:1.20' #runtime: 'go:default'
+
+
+
+
+
+  #   packages:
+  # - name: security
+  #   environment:
+  #       jwt_issuer : security.lemoras.com
+  #       root_account : root@lemoras.com
+  #       token_secret_key : uzunincebiryoldayimsarkisiniburadantumsevdiklerimehediyeetmekistiyorummumkunmuduracaba?
+  #       database_url : postgresql://doadmin:AVNS_-BLQB9eemH3luUd6piS@db-postgresql-lon1-32892-do-user-14029732-0.c.db.ondigitalocean.com:25060/defaultdb?sslmode=require
+  #   functions:
+  #     - name: authenticate
+  #       limits:
+  #         timeout: 3000
+  #         memory: 128
+  #     - name: account
+  #       limits:
+  #         timeout: 3000
+  #         memory: 128
+  #     - name: role
+  #       limits:
+  #         timeout: 3000
+  #         memory: 128
+  #     - name: validation
+  #       limits:
+  #         timeout: 3000
+  #         memory: 128
+  #   # actions:
+  #   #   - name: authenticate
+  #   #     runtime: 'go:1.20' #runtime: 'go:default'
+  #   #   - name: account
+  #   #     runtime: 'go:1.20' #runtime: 'go:default'
+  #   #   - name: role
+  #   #     runtime: 'go:1.20' #runtime: 'go:default'
+  #   #   - name: validation
+  #   #     runtime: 'go:1.20' #runtime: 'go:default'
+    
+  # - name: system
+  #   environment:
+  #       jwt_issuer : security.lemoras.com
+  #       root_account : root@lemoras.com
+  #       token_secret_key : uzunincebiryoldayimsarkisiniburadantumsevdiklerimehediyeetmekistiyorummumkunmuduracaba?
+  #       database_url : postgresql://doadmin:AVNS_-BLQB9eemH3luUd6piS@db-postgresql-lon1-32892-do-user-14029732-0.c.db.ondigitalocean.com:25060/defaultdb?sslmode=require
+  #   functions:
+  #     - name: init
+  #       limits:
+  #         timeout: 3000
+  #         memory: 128
+  #     - name: zombie
+  #       limits:
+  #         timeout: 3000
+  #         memory: 128
+  #     - name: project
+  #       limits:
+  #         timeout: 3000
+  #         memory: 128
+  #     - name: member
+  #       limits:
+  #         timeout: 3000
+  #         memory: 128
+  #   # actions:
+  #   #   - name: init
+  #   #     runtime: 'go:1.20' #runtime: 'go:default'
+  #   #   - name: zombie
+  #   #     runtime: 'go:1.20' #runtime: 'go:default'
+
+  # - name: presign
+  #   environment:
+  #       SPACES_KEY: DO00CV4RTNYCUPE6LH87
+  #       SPACES_SECRET: AibI7SUe58QHtl5ZT7btvkxFB4C/UyjtbktKWKW7f1s
+  #       BUCKET: lemoras
+  #       REGION: nyc3
+  #   functions:
+  #     - name: url
+  #       limits:
+  #         timeout: 3000
+  #         memory: 128
+  #     - name: test
+  #       limits:
+  #         timeout: 3000
+  #         memory: 128
+  #   # actions:
+  #   #   - name: url
+  #   #     runtime: 'go:default'
+  #   #   - name: test
+  #   #     runtime: 'go:default'

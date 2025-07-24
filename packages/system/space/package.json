@@ -1,0 +1,7 @@
+{
+  "main": "index.js",
+  "dependencies": {
+    "aws-sdk": "^2.1589.0",
+    "request": "^2.88.2"
+  }
+}
