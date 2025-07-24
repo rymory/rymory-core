@@ -30,3 +30,18 @@ go.work.sum
 # Editor/IDE
 # .idea/
 # .vscode/
+
+service.sh
+clear.sh
+app/.env
+packages/security/account/.env
+packages/security/authenticate/.env
+packages/security/role/.env
+packages/security/validation/.env
+packages/system/email/.env
+packages/system/file/.env
+packages/system/init/.env
+packages/system/member/.env
+packages/system/project/.env
+packages/system/space/.env
+packages/system/zombie/.env
