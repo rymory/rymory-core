@@ -3,7 +3,7 @@ package main
 import (
 	"validation"
 
-	u "gitlab.com/onxorg/goutils/api"
+	u "github.com/lemoras/goutils/api"
 )
 
 func Main(in validation.Request) (*u.Response, error) {

@@ -5,7 +5,7 @@ replace zombie => ./module
 go 1.20
 
 require (
-	gitlab.com/onxorg/goutils/api v0.0.0-20241123105102-cf00b6958c18
+	github.com/lemoras/goutils/api v0.0.0-20250801074636-babf72f0ff35
 	zombie v0.0.0-00010101000000-000000000000
 )
 
@@ -19,5 +19,5 @@ require (
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/jinzhu/gorm v1.9.16 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
-	gitlab.com/onxorg/goutils/db v0.0.0-20241123105102-cf00b6958c18 // indirect
+	github.com/lemoras/goutils/db v0.0.0-20250801074636-babf72f0ff35 // indirect
 )

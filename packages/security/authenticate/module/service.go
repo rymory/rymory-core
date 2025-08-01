@@ -10,8 +10,8 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/google/uuid"
 	"github.com/jinzhu/gorm"
-	u "gitlab.com/onxorg/goutils/api"
-	d "gitlab.com/onxorg/goutils/db"
+	u "github.com/lemoras/goutils/api"
+	d "github.com/lemoras/goutils/db"
 	"golang.org/x/crypto/bcrypt"
 )
 

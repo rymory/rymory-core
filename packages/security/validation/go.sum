@@ -2,5 +2,5 @@ github.com/dgrijalva/jwt-go v3.2.0+incompatible h1:7qlOGliEKZXTDg6OTjfoBKDXWrumC
 github.com/dgrijalva/jwt-go v3.2.0+incompatible/go.mod h1:E3ru+11k8xSBh+hMPgOLZmtrrCbhqsmaPHjLKYnJCaQ=
 github.com/google/uuid v1.6.0 h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=
 github.com/google/uuid v1.6.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
-gitlab.com/onxorg/goutils/api v0.0.0-20241123105102-cf00b6958c18 h1:Tou0nmqyv3Xxa+kIRfKkZcOEWMN8L8CR+o4ZcICh8EM=
-gitlab.com/onxorg/goutils/api v0.0.0-20241123105102-cf00b6958c18/go.mod h1:fLmozVFd2Fhz0A4LzxV8bjwwDEHHdVxKHFO5PYq/Vmc=
+github.com/lemoras/goutils/api v0.0.0-20250801074636-babf72f0ff35 h1:/FOxIBtD6sx2jZR54DmygXTjzhwJe1w/HXIrVKW97UA=
+github.com/lemoras/goutils/api v0.0.0-20250801074636-babf72f0ff35/go.mod h1:jSrEPyn1FjuVA8+qn+Xvh42gafx9b6ZOsx7dohxbX8o=

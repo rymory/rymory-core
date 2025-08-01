@@ -3,7 +3,7 @@ package main
 import (
 	"zombie"
 
-	u "gitlab.com/onxorg/goutils/api"
+	u "github.com/lemoras/goutils/api"
 )
 
 func Main(in zombie.Request) (*u.Response, error) {

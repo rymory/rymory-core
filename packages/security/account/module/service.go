@@ -9,8 +9,8 @@ import (
 	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/bcrypt"
 
-	u "gitlab.com/onxorg/goutils/api"
-	d "gitlab.com/onxorg/goutils/db"
+	u "github.com/lemoras/goutils/api"
+	d "github.com/lemoras/goutils/db"
 )
 
 type Membership struct {

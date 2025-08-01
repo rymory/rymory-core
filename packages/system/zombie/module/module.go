@@ -1,7 +1,7 @@
 package zombie
 
 import (
-	u "gitlab.com/onxorg/goutils/api"
+	u "github.com/lemoras/goutils/api"
 )
 
 type Request struct {

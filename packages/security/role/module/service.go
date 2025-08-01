@@ -7,8 +7,8 @@ import (
 	"github.com/google/uuid"
 	"github.com/jinzhu/gorm"
 
-	u "gitlab.com/onxorg/goutils/api"
-	d "gitlab.com/onxorg/goutils/db"
+	u "github.com/lemoras/goutils/api"
+	d "github.com/lemoras/goutils/db"
 )
 
 type Role struct {

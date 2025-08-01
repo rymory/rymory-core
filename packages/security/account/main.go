@@ -3,7 +3,7 @@ package main
 import (
 	"account"
 
-	u "gitlab.com/onxorg/goutils/api"
+	u "github.com/lemoras/goutils/api"
 )
 
 // Main forwarding to Hello

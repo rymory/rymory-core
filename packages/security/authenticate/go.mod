@@ -4,7 +4,7 @@ replace authenticate => ./module
 
 require (
 	authenticate v0.0.0-00010101000000-000000000000
-	gitlab.com/onxorg/goutils/api v0.0.0-20241123105102-cf00b6958c18
+	github.com/lemoras/goutils/api v0.0.0-20250801074636-babf72f0ff35
 )
 
 require (
@@ -13,8 +13,8 @@ require (
 	github.com/jinzhu/gorm v1.9.16 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/joho/godotenv v1.5.1 // indirect
+	github.com/lemoras/goutils/db v0.0.0-20250801074636-babf72f0ff35 // indirect
 	github.com/lib/pq v1.10.9 // indirect
-	gitlab.com/onxorg/goutils/db v0.0.0-20241123105102-cf00b6958c18 // indirect
 	golang.org/x/crypto v0.29.0 // indirect
 )
 

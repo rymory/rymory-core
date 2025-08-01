@@ -3,7 +3,7 @@ package main
 import (
 	"member"
 
-	u "gitlab.com/onxorg/goutils/api"
+	u "github.com/lemoras/goutils/api"
 )
 
 func Main(in member.Request) (*u.Response, error) {

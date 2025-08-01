@@ -2,7 +2,7 @@ package member
 
 import (
 	"github.com/google/uuid"
-	u "gitlab.com/onxorg/goutils/api"
+	u "github.com/lemoras/goutils/api"
 )
 
 type Request struct {
