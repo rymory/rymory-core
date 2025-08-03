@@ -35,6 +35,7 @@ func Invoke(in Request) (*u.Response, error) {
 	headData["HasId"] = fmt.Sprint(context.HasId)
 	headData["ProjectId"] = fmt.Sprint(context.ProjectId)
 	headData["CustomData"] = fmt.Sprint(context.CustomData)
+	headData["InitCompleted"] = fmt.Sprint(context.InitCompleted)
 
 	headData["Access-Control-Expose-Headers"] = "userid"
 	headData["Access-Control-Expose-Headers"] = "UserId"

@@ -233,6 +233,8 @@ func BuildToken(userId uuid.UUID, roleId int, appId int, merchantId uuid.UUID, h
 	// 	return u.Message(false, "project info error")
 	// }   goutils de bu olmali mi
 
+	var initCompleted = !result.LastLoginDate.IsZero()
+
 	account := &BuildAccount{}
 
 	atClaims := jwt.StandardClaims{}
@@ -240,7 +242,7 @@ func BuildToken(userId uuid.UUID, roleId int, appId int, merchantId uuid.UUID, h
 	atClaims.ExpiresAt = time.Now().Add(time.Hour * 100).Unix()
 
 	//Create JWT token
-	tk := &u.Token{UserId: userId, RoleId: roleId, AppId: appId, MerchantId: merchantId, HasId: hasId, ProjectId: projectId, CustomData: customData, StandardClaims: atClaims}
+	tk := &u.Token{UserId: userId, RoleId: roleId, AppId: appId, MerchantId: merchantId, HasId: hasId, ProjectId: projectId, CustomData: customData, InitCompleted: initCompleted, StandardClaims: atClaims}
 	token := jwt.NewWithClaims(jwt.GetSigningMethod("HS512"), tk)
 	tokenString, _ := token.SignedString([]byte(os.Getenv("token_secret_key")))
 	account.Token = tokenString //Store the token in the response
