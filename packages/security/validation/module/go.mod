@@ -1,6 +1,6 @@
 module validation
 
-require github.com/lemoras/goutils/api v0.0.0-20250803100205-481cd7ccb67e
+require github.com/lemoras/goutils/api v1.0.0
 
 require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect

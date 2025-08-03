@@ -7,8 +7,8 @@ toolchain go1.24.4
 require (
 	github.com/google/uuid v1.6.0
 	github.com/jinzhu/gorm v1.9.16
-	github.com/lemoras/goutils/api v0.0.0-20250803100205-481cd7ccb67e
-	github.com/lemoras/goutils/db v0.0.0-20250803100205-481cd7ccb67e
+	github.com/lemoras/goutils/api v1.0.0
+	github.com/lemoras/goutils/db v1.0.0
 	golang.org/x/crypto v0.40.0
 )
 
