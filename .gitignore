@@ -46,3 +46,4 @@ packages/system/project/.env
 packages/system/space/.env
 packages/system/zombie/.env
 app/main
+.deployed/versions.json
