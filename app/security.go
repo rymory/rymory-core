@@ -102,5 +102,15 @@ func Ticket(w http.ResponseWriter, r *http.Request) {
 	in.Http.Method = r.Method
 
 	resp, _ := ticket.Invoke(in)
+
+	w.Header().Set("userId", resp.Headers["UserId"])
+	w.Header().Set("roleId", resp.Headers["RoleId"])
+	w.Header().Set("appId", resp.Headers["AppId"])
+	w.Header().Set("merchantId", resp.Headers["MerchantId"])
+	w.Header().Set("hasId", resp.Headers["HasId"])
+	w.Header().Set("projectId", resp.Headers["ProjectId"])
+	w.Header().Set("customData", resp.Headers["CustomData"])
+	w.Header().Set("initCompleted", resp.Headers["InitCompleted"])
+
 	w.Write([]byte(resp.Body))
 }
