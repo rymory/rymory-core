@@ -1,6 +1,9 @@
 package ticket
 
 import (
+	"encoding/json"
+	"fmt"
+	"net/http"
 	"os"
 	"strings"
 
@@ -27,8 +30,6 @@ type CustomHeader struct {
 
 func Invoke(in Request) (*u.Response, error) {
 
-	var resp map[string]interface{}
-
 	if in.Http.CustomHeader.Authorization != "" {
 
 		context := &u.Context{}
@@ -39,14 +40,37 @@ func Invoke(in Request) (*u.Response, error) {
 		if in.CustomData != "" {
 
 			if in.Http.Method == "POST" {
-				resp = GenerateTicket(in.CustomData, *context)
+				return u.Respond(GenerateTicket(in.CustomData, *context))
 			} else if in.Http.Method == "GET" {
-				resp = ValidTicket(in.CustomData, *context)
+
+				headData := make(map[string]string)
+				headData["UserId"] = fmt.Sprint(context.UserId)
+				headData["RoleId"] = fmt.Sprint(context.RoleId)
+				headData["AppId"] = fmt.Sprint(context.AppId)
+				headData["MerchantId"] = fmt.Sprint(context.MerchantId)
+				headData["HasId"] = fmt.Sprint(context.HasId)
+				headData["ProjectId"] = fmt.Sprint(context.ProjectId)
+				headData["CustomData"] = fmt.Sprint(context.CustomData)
+				headData["InitCompleted"] = fmt.Sprint(context.InitCompleted)
+
+				headData["Access-Control-Expose-Headers"] = "userid"
+				headData["Access-Control-Expose-Headers"] = "UserId"
+
+				resp := ValidTicket(in.CustomData, *context)
+
+				jsonData, _ := json.Marshal(resp)
+
+				return &u.Response{
+					StatusCode: http.StatusOK,
+					Headers:    headData,
+					Body:       string(jsonData),
+				}, nil
 			}
 		}
+
 	}
 
-	return u.Respond(resp)
+	return u.Respond(u.Message(false, "Invlaid"))
 }
 
 var GenerateTicket = func(customData string, context u.Context) map[string]interface{} {
@@ -78,7 +102,10 @@ var ValidTicket = func(customData string, context u.Context) map[string]interfac
 		ticketContext.AppId == context.AppId &&
 		ticketContext.RoleId == context.RoleId {
 
-		return u.Message(true, "Ticket is valid.")
+		resp := u.Message(true, "Ticket is valid.")
+		resp["ticket"] = ticketContext.CustomData
+
+		return resp
 	}
 
 	return u.Message(false, "Ticket is invalid.")
