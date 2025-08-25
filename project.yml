@@ -6,6 +6,7 @@ packages:
         token_secret_key : ${token_secret_key}
         token_root_secret_key : ${token_root_secret_key}
         database_url : ${database_url}
+        ticket_secret_key : ${ticket_secret_key}
     functions:
       - name: authenticate
         limits:
@@ -20,6 +21,10 @@ packages:
           timeout: 3000
           memory: 128
       - name: validation
+        limits:
+          timeout: 3000
+          memory: 128
+      - name: ticket
         limits:
           timeout: 3000
           memory: 128
