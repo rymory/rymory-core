@@ -16,6 +16,8 @@ replace project => ./../packages/system/project/module
 
 replace zombie => ./../packages/system/zombie/module
 
+replace ticket => ./../packages/security/ticket/module
+
 go 1.23.5
 
 require role v0.0.0-00010101000000-000000000000
@@ -41,6 +43,7 @@ require (
 	initialize v0.0.0-00010101000000-000000000000
 	member v0.0.0-00010101000000-000000000000
 	project v0.0.0-00010101000000-000000000000
+	ticket v0.0.0-00010101000000-000000000000
 	validation v0.0.0-00010101000000-000000000000
 	zombie v0.0.0-00010101000000-000000000000
 )

@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"role"
+	"ticket"
 	"validation"
 )
 
@@ -85,5 +86,21 @@ func Validation(w http.ResponseWriter, r *http.Request) {
 
 	// w.ExposedHeaders([]string{"Access-Control-Expose-Headers", "userId", "UserId"}),
 
+	w.Write([]byte(resp.Body))
+}
+
+func Ticket(w http.ResponseWriter, r *http.Request) {
+
+	var in ticket.Request
+
+	reqBody, _ := ioutil.ReadAll(r.Body)
+	json.Unmarshal(reqBody, &in)
+
+	fmt.Println("Endpoint hit: Ticket")
+
+	in.Http.CustomHeader.Authorization = r.Header.Get("authorization")
+	in.Http.Method = r.Method
+
+	resp, _ := ticket.Invoke(in)
 	w.Write([]byte(resp.Body))
 }

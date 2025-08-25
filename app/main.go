@@ -22,6 +22,8 @@ func main() {
 	r.HandleFunc("/system/project", Project)
 	r.HandleFunc("/system/zombie", Zombie)
 
+	r.HandleFunc("/security/ticket", Ticket)
+
 	corsMiddleware := handlers.CORS(
 		handlers.AllowedOrigins([]string{"*"}),
 		handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}),
