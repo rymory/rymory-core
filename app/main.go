@@ -6,12 +6,13 @@ import (
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
+	u "github.com/lemoras/goutils/api"
 )
 
 func main() {
 	r := mux.NewRouter().StrictSlash(true)
 
-	//r.Use(authMiddleware)
+	r.Use(authMiddleware)
 
 	r.HandleFunc("/security/authenticate", Authenticate) // ----> To request all groceries
 	r.HandleFunc("/security/account", Account)
@@ -44,13 +45,16 @@ func main() {
 	//http.Handle("/", r)
 }
 
-// func authMiddleware(next http.Handler) http.Handler {
-// 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-// 		log.Println(r.Method, r.URL.Path)
+func authMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		log.Println(r.Method, r.URL.Path)
 
-// 		//token := r.Header.Get("authentication") // authorization
-// 		w.Header().Set("Content-Type", "application/json")
+		if isOk := u.RateTokenhandler(w, r); !isOk {
+			return
+		}
 
-// 		next.ServeHTTP(w, r)
-// 	})
-// }
+		w.Header().Set("Content-Type", "application/json")
+
+		next.ServeHTTP(w, r)
+	})
+}
