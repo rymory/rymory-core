@@ -1,4 +1,4 @@
-module authenticate
+module ticket
 
 require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
@@ -6,6 +6,4 @@ require (
 	github.com/lemoras/goutils/api v1.0.0
 )
 
-go 1.23.0
-
-toolchain go1.24.4
+go 1.20

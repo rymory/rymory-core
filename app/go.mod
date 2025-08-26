@@ -18,7 +18,7 @@ replace zombie => ./../packages/system/zombie/module
 
 replace ticket => ./../packages/security/ticket/module
 
-go 1.23.5
+go 1.25.0
 
 require role v0.0.0-00010101000000-000000000000
 
@@ -39,7 +39,7 @@ require (
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/joho/godotenv v1.5.1 // indirect
 	github.com/lib/pq v1.10.9 // indirect
-	golang.org/x/crypto v0.40.0 // indirect
+	golang.org/x/crypto v0.41.0 // indirect
 	initialize v0.0.0-00010101000000-000000000000
 	member v0.0.0-00010101000000-000000000000
 	project v0.0.0-00010101000000-000000000000
