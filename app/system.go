@@ -58,7 +58,7 @@ func Project(w http.ResponseWriter, r *http.Request) {
 
 	in.Http.CustomHeader.Authorization = r.Header.Get("authorization")
 	in.Http.Method = r.Method
-	in.Domain = strings.Split((strings.Split(r.Header.Get("referer"), "http://")[1]), "/")[0]
+	in.Http.CustomHeader.Referer = r.Header.Get("referer")
 
 	resp, _ := project.Invoke(in)
 	w.Write([]byte(resp.Body))

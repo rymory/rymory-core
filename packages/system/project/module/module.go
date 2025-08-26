@@ -20,8 +20,6 @@ type Request struct {
 
 	IsOwnerLemoras bool     `json:"isOwnerLemoras"`
 	Domains        []string `json:"domains"`
-
-	Domain string `json:"domain"`
 }
 
 type CustomHttp struct {
@@ -31,6 +29,7 @@ type CustomHttp struct {
 
 type CustomHeader struct {
 	Authorization string `json:"authorization"`
+	Referer       string `json:"referer"`
 }
 
 func Invoke(in Request) (*u.Response, error) {
@@ -38,7 +37,16 @@ func Invoke(in Request) (*u.Response, error) {
 	var resp map[string]interface{}
 
 	if in.Http.CustomHeader.Authorization == "" {
-		return u.Respond(GetMerchantByDomain(in.Domain))
+		refererDomain := ""
+		if strings.Contains(in.Http.CustomHeader.Referer, "http://") {
+			refererDomain = strings.Split(in.Http.CustomHeader.Referer, "http://")[1]
+		}
+		if strings.Contains(in.Http.CustomHeader.Referer, "https://") {
+			refererDomain = strings.Split(in.Http.CustomHeader.Referer, "https://")[1]
+		}
+
+		domain := strings.Split((refererDomain), "/")[0]
+		return u.Respond(GetMerchantByDomain(domain))
 	}
 
 	context := &u.Context{}
