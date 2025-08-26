@@ -9,22 +9,32 @@ packages:
         ticket_secret_key : ${ticket_secret_key}
     functions:
       - name: authenticate
+        runtime: go:1.20
+        web: true  
         limits:
           timeout: 3000
           memory: 128
       - name: account
+        runtime: go:1.20
+        web: true  
         limits:
           timeout: 3000
           memory: 128
       - name: role
+        runtime: go:1.20
+        web: true  
         limits:
           timeout: 3000
           memory: 128
       - name: validation
+        runtime: go:1.20
+        web: true  
         limits:
           timeout: 3000
           memory: 128
       - name: ticket
+        runtime: go:1.20
+        web: true  
         limits:
           timeout: 3000
           memory: 128
@@ -36,6 +46,8 @@ packages:
     #   - name: role
     #     runtime: 'go:1.20' #runtime: 'go:default'
     #   - name: validation
+    #     runtime: 'go:1.20' #runtime: 'go:default'
+    #   - name: ticket
     #     runtime: 'go:1.20' #runtime: 'go:default'
     
   - name: system
@@ -52,37 +64,54 @@ packages:
         VALID_API_URL: "${VALID_API_URL}"
     functions:
       - name: file
+        runtime: go:1.20
+        web: true  
         limits:
           timeout: 3000
           memory: 512
       - name: init
+        runtime: go:1.20
+        web: true  
         limits:
           timeout: 3000
           memory: 128
       - name: zombie
+        runtime: go:1.20
+        web: true  
         limits:
           timeout: 3000
           memory: 128
       - name: project
+        runtime: go:1.20
+        web: true  
         limits:
           timeout: 3000
           memory: 128
       - name: member
+        runtime: go:1.20
+        web: true  
         limits:
           timeout: 3000
           memory: 128
       - name: space
+        runtime: go:1.20
+        web: true  
         limits:
           timeout: 3000
           memory: 512
-    actions:
-      - name: file
-        runtime: 'go:1.20' #runtime: 'go:default'
+    # actions:
+    #   - name: file
+    #     runtime: 'go:1.20' #runtime: 'go:default'
     #   - name: init
     #     runtime: 'go:1.20' #runtime: 'go:default'
     #   - name: zombie
     #     runtime: 'go:1.20' #runtime: 'go:default'
-
+    #   - name: project
+    #     runtime: 'go:1.20' #runtime: 'go:default'
+    #   - name: member
+    #     runtime: 'go:1.20' #runtime: 'go:default'
+    #   - name: space
+    #     runtime: 'go:1.20' #runtime: 'go:default'
 
 
 
