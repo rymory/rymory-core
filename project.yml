@@ -64,7 +64,7 @@ packages:
         VALID_API_URL: "${VALID_API_URL}"
     functions:
       - name: file
-        runtime: go:1.20
+        runtime: nodejs:14
         web: true  
         limits:
           timeout: 3000
@@ -94,7 +94,7 @@ packages:
           timeout: 3000
           memory: 128
       - name: space
-        runtime: go:1.20
+        runtime: nodejs:14
         web: true  
         limits:
           timeout: 3000
