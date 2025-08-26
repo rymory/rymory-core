@@ -10,31 +10,31 @@ packages:
     functions:
       - name: authenticate
         runtime: go:1.20
-        web: true  
+        # web: true  
         limits:
           timeout: 3000
           memory: 128
       - name: account
         runtime: go:1.20
-        web: true  
+        # web: true  
         limits:
           timeout: 3000
           memory: 128
       - name: role
         runtime: go:1.20
-        web: true  
+        # web: true  
         limits:
           timeout: 3000
           memory: 128
       - name: validation
         runtime: go:1.20
-        web: true  
+        # web: true  
         limits:
           timeout: 3000
           memory: 128
       - name: ticket
         runtime: go:1.20
-        web: true  
+        # web: true  
         limits:
           timeout: 3000
           memory: 128
@@ -65,37 +65,37 @@ packages:
     functions:
       - name: file
         runtime: nodejs:14
-        web: true  
+        # web: true  
         limits:
           timeout: 3000
           memory: 512
       - name: init
         runtime: go:1.20
-        web: true  
+        # web: true  
         limits:
           timeout: 3000
           memory: 128
       - name: zombie
         runtime: go:1.20
-        web: true  
+        # web: true  
         limits:
           timeout: 3000
           memory: 128
       - name: project
         runtime: go:1.20
-        web: true  
+        # web: true  
         limits:
           timeout: 3000
           memory: 128
       - name: member
         runtime: go:1.20
-        web: true  
+        # web: true  
         limits:
           timeout: 3000
           memory: 128
       - name: space
         runtime: nodejs:14
-        web: true  
+        # web: true  
         limits:
           timeout: 3000
           memory: 512
