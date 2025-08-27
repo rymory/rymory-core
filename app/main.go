@@ -11,7 +11,7 @@ import (
 func main() {
 	r := mux.NewRouter().StrictSlash(true)
 
-	r.Use(authMiddleware)
+	// r.Use(authMiddleware)
 
 	r.HandleFunc("/security/authenticate", Authenticate) // ----> To request all groceries
 	r.HandleFunc("/security/account", Account)
@@ -44,16 +44,16 @@ func main() {
 	//http.Handle("/", r)
 }
 
-func authMiddleware(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		log.Println(r.Method, r.URL.Path)
+// func authMiddleware(next http.Handler) http.Handler {
+// 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+// 		log.Println(r.Method, r.URL.Path)
 
-		if isOk := RateTokenhandler(w, r); !isOk {
-			return
-		}
+// 		// if isOk := u.RateTokenhandler(w, r); !isOk {
+// 		// 	return
+// 		// }
 
-		w.Header().Set("Content-Type", "application/json")
+// 		w.Header().Set("Content-Type", "application/json")
 
-		next.ServeHTTP(w, r)
-	})
-}
+// 		next.ServeHTTP(w, r)
+// 	})
+// }
