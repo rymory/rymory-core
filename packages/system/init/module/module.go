@@ -11,18 +11,8 @@ import (
 )
 
 type Request struct {
-	Http     CustomHttp       `json:"http"`
+	Http     u.CustomHttp     `json:"http"`
 	Projects []ProjectRequest `json:"projects"`
-}
-
-type CustomHttp struct {
-	CustomHeader CustomHeader `json:"headers"`
-	Method       string       `json:"method"`
-	Path         string       `json:"path"`
-}
-
-type CustomHeader struct {
-	Authorization string `json:"authorization"`
 }
 
 type ProjectRequest struct {

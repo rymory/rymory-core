@@ -9,7 +9,7 @@ import (
 )
 
 type Request struct {
-	Http CustomHttp `json:"http"`
+	Http u.CustomHttp `json:"http"`
 
 	AppId          int       `json:"appId"`
 	MerchantId     uuid.UUID `json:"merchantId"`
@@ -20,16 +20,6 @@ type Request struct {
 
 	IsOwnerLemoras bool     `json:"isOwnerLemoras"`
 	Domains        []string `json:"domains"`
-}
-
-type CustomHttp struct {
-	CustomHeader CustomHeader `json:"headers"`
-	Method       string       `json:"method"`
-}
-
-type CustomHeader struct {
-	Authorization string `json:"authorization"`
-	Referer       string `json:"referer"`
 }
 
 func Invoke(in Request) (*u.Response, error) {
