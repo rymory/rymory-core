@@ -84,7 +84,10 @@ func Validation(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("customData", resp.Headers["CustomData"])
 	w.Header().Set("initCompleted", resp.Headers["InitCompleted"])
 
-	// w.ExposedHeaders([]string{"Access-Control-Expose-Headers", "userId", "UserId"}),
+	// w.Header().Set("Access-Control-Expose-Headers", "userid")
+	// w.Header().Set("Access-Control-Expose-Headers", "UserId")
+
+	// w.ExposedHeaders([]string{"Access-Control-Expose-Headers", "userId", "UserId"})
 
 	w.Write([]byte(resp.Body))
 }

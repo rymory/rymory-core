@@ -6,7 +6,6 @@ import (
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
-	u "github.com/lemoras/goutils/api"
 )
 
 func main() {
@@ -49,7 +48,7 @@ func authMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		log.Println(r.Method, r.URL.Path)
 
-		if isOk := u.RateTokenhandler(w, r); !isOk {
+		if isOk := RateTokenhandler(w, r); !isOk {
 			return
 		}
 
