@@ -21,17 +21,7 @@ type Request struct {
 
 	Token string `json:"token"`
 
-	Http CustomHttp `json:"http"`
-}
-
-type CustomHttp struct {
-	CustomHeader CustomHeader `json:"headers"`
-	Method       string       `json:"method"`
-	Path         string       `json:"path"`
-}
-
-type CustomHeader struct {
-	Authorization string `json:"authorization"`
+	Http u.CustomHttp `json:"http"`
 }
 
 func Invoke(in Request) (*u.Response, error) {

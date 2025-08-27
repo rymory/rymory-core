@@ -17,7 +17,7 @@ require (
 )
 
 require (
-	github.com/lemoras/goutils/api v1.0.2
+	github.com/lemoras/goutils/api v1.0.3
 	github.com/lemoras/goutils/db v1.0.1
 )
 

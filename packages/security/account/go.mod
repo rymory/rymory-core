@@ -7,7 +7,7 @@ replace account => ./module
 
 require (
 	account v0.0.0-00010101000000-000000000000
-	github.com/lemoras/goutils/api v1.0.2
+	github.com/lemoras/goutils/api v1.0.3
 )
 
 require (

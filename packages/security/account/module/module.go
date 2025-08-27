@@ -13,16 +13,7 @@ type Request struct {
 	PhotoUrl string `json:"photoUrl"`
 	AboutMe  string `json:"aboutMe"`
 
-	Http CustomHttp `json:"http"`
-}
-
-type CustomHttp struct {
-	CustomHeader CustomHeader `json:"headers"`
-	Method       string       `json:"method"`
-}
-
-type CustomHeader struct {
-	Authorization string `json:"authorization"`
+	Http u.CustomHttp `json:"http"`
 }
 
 func Invoke(in Request) (*u.Response, error) {

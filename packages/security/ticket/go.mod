@@ -3,7 +3,7 @@ module action
 replace ticket => ./module
 
 require (
-	github.com/lemoras/goutils/api v1.0.0
+	github.com/lemoras/goutils/api v1.0.3
 	ticket v0.0.0-00010101000000-000000000000
 )
 
