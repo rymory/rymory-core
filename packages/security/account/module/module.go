@@ -22,7 +22,7 @@ func Invoke(in Request) (*u.Response, error) {
 
 	if in.Http.Method == "GET" {
 		context := &u.Context{}
-		if isOk, res := u.JwtAuthentication(in.Http.CustomHeader.Authorization, context); !isOk {
+		if isOk, res := u.CheckJWTAutCookie(in.Http.CustomHeader.Authorization, context, in.Http.CustomHeader); !isOk {
 			return &res, nil
 		}
 		resp = GetAccount(*context)
@@ -40,7 +40,7 @@ func Invoke(in Request) (*u.Response, error) {
 	} else if in.Http.Method == "PUT" {
 
 		context := &u.Context{}
-		if isOk, res := u.JwtAuthentication(in.Http.CustomHeader.Authorization, context); !isOk {
+		if isOk, res := u.CheckJWTAutCookie(in.Http.CustomHeader.Authorization, context, in.Http.CustomHeader); !isOk {
 			return &res, nil
 		}
 		account := Account{}

@@ -23,8 +23,16 @@ func Authenticate(w http.ResponseWriter, r *http.Request) {
 
 	in.Http.CustomHeader.Authorization = r.Header.Get("authorization")
 	in.Http.Method = r.Method
+	in.Http.CustomHeader.Origin = r.Header.Get("origin")
+	in.Http.CustomHeader.Cookie = r.Header.Get("cookie")
 
 	resp, _ := authenticate.Invoke(in)
+
+	w.Header().Set("Content-Type", resp.Headers["Content-Type"])
+	w.Header().Set("Set-Cookie", resp.Headers["Set-Cookie"])
+	w.Header().Set("Access-Control-Allow-Origin", resp.Headers["Access-Control-Allow-Origin"])
+	w.Header().Set("Access-Control-Allow-Credentials", resp.Headers["Access-Control-Allow-Credentials"])
+
 	w.Write([]byte(resp.Body))
 
 	//json.NewEncoder(w).Encode(resp)

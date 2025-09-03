@@ -25,7 +25,7 @@ func main() {
 	r.HandleFunc("/security/ticket", Ticket)
 
 	corsMiddleware := handlers.CORS(
-		handlers.AllowedOrigins([]string{"*"}),
+		handlers.AllowedOrigins([]string{"http://localhost", "http://account.localhost", "http://note.localhost"}),
 		handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}),
 		handlers.AllowedHeaders([]string{
 			"Content-Type",
@@ -34,8 +34,8 @@ func main() {
 			// "Access-Control-Expose-Headers",
 		}),
 		handlers.MaxAge(3600),
-
-		// handlers.ExposedHeaders([]string{"userId", "UserId"}),
+		handlers.AllowCredentials(),
+		// handlers.ExposedHeaders([]string{"Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"}),
 	)
 
 	handler := corsMiddleware(r)

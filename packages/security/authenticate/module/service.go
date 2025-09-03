@@ -66,7 +66,7 @@ type ResultBuildToken struct {
 	LastLoginDate time.Time `json:"lastLoginDate"`
 }
 
-func Login(email, password string, tokenUserId uuid.UUID) map[string]interface{} {
+func Login(email, password string, tokenUserId uuid.UUID) (map[string]interface{}, string) {
 
 	account := &Result{}
 
@@ -76,11 +76,11 @@ func Login(email, password string, tokenUserId uuid.UUID) map[string]interface{}
 
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
-			return u.Message(false, "0x11021:Email address not found")
+			return u.Message(false, "0x11021:Email address not found"), ""
 
 		}
 		fmt.Println(err)
-		return u.Message(false, "0x11004:Connection error. Please retry")
+		return u.Message(false, "0x11004:Connection error. Please retry"), ""
 	}
 
 	if len(account.LoginErrorLock) > 0 && (account.LoginErrorLock[0] == "3"[0] || account.LoginErrorLock[0] == "6"[0] || account.LoginErrorLock[0] == "9"[0]) {
@@ -88,9 +88,9 @@ func Login(email, password string, tokenUserId uuid.UUID) map[string]interface{}
 		if account.LoginErrorLock[0] == "9"[0] {
 			lockAccountResult := LockAccount(account.UserId)
 			if !lockAccountResult["status"].(bool) {
-				return lockAccountResult
+				return lockAccountResult, ""
 			}
-			return u.Message(false, "0x11138:Your account has been locked due to 9 unsuccessful login attempts")
+			return u.Message(false, "0x11138:Your account has been locked due to 9 unsuccessful login attempts"), ""
 		}
 
 		lastTime, _ := strconv.ParseInt(strings.Split(account.LoginErrorLock, "x")[1], 10, 64)
@@ -100,11 +100,11 @@ func Login(email, password string, tokenUserId uuid.UUID) map[string]interface{}
 		deltaTime := time.Now().Unix() - lastTime
 
 		if deltaTime <= 300 && account.LoginErrorLock[0] == "3"[0] {
-			return u.Message(false, "0x11139:You have entered incorrect credentials 3 times. You need to wait 5 minutes after your last unsuccessful attempt")
+			return u.Message(false, "0x11139:You have entered incorrect credentials 3 times. You need to wait 5 minutes after your last unsuccessful attempt"), ""
 		}
 
 		if deltaTime <= 900 && account.LoginErrorLock[0] == "6"[0] {
-			return u.Message(false, "0x11140:You have entered incorrect credentials 6 times. You need to wait 15 minutes after your last unsuccessful attempt")
+			return u.Message(false, "0x11140:You have entered incorrect credentials 6 times. You need to wait 15 minutes after your last unsuccessful attempt"), ""
 		}
 	}
 
@@ -128,10 +128,10 @@ func Login(email, password string, tokenUserId uuid.UUID) map[string]interface{}
 			newStrLoginErrorLock := strErrTimes + "x" + lastTime
 			loginLockUpdate := LoginLockUpdate(account.UserId, newStrLoginErrorLock)
 			if !loginLockUpdate["status"].(bool) {
-				return loginLockUpdate
+				return loginLockUpdate, ""
 			}
 
-			return u.Message(false, "0x11022:Invalid login credentials. Please try again")
+			return u.Message(false, "0x11022:Invalid login credentials. Please try again"), ""
 		}
 
 		if len(account.LoginErrorLock) > 0 {
@@ -145,7 +145,7 @@ func Login(email, password string, tokenUserId uuid.UUID) map[string]interface{}
 			if errLockTimes < 9 {
 				loginLockUpdate := LoginLockUpdate(account.UserId, "")
 				if !loginLockUpdate["status"].(bool) {
-					return loginLockUpdate
+					return loginLockUpdate, ""
 				}
 			}
 
@@ -154,9 +154,9 @@ func Login(email, password string, tokenUserId uuid.UUID) map[string]interface{}
 		if tokenUserId != account.UserId {
 			LockAccount := LockAccount(account.UserId)
 			if !LockAccount["status"].(bool) {
-				return LockAccount
+				return LockAccount, ""
 			}
-			return u.Message(false, "0x11141:Rather than a technical error, a request was sent to the server with manually manipulated data. This is a fraud operation")
+			return u.Message(false, "0x11141:Rather than a technical error, a request was sent to the server with manually manipulated data. This is a fraud operation"), ""
 		}
 	}
 
@@ -193,7 +193,7 @@ func Login(email, password string, tokenUserId uuid.UUID) map[string]interface{}
 
 	resp := u.Message(true, "0x11023:Logged In")
 	resp["account"] = account
-	return resp
+	return resp, tokenString
 }
 
 func CheckUser(userId uuid.UUID, roleId int, appId int, merchantId uuid.UUID) map[string]interface{} {
@@ -217,12 +217,12 @@ func CheckUser(userId uuid.UUID, roleId int, appId int, merchantId uuid.UUID) ma
 	return resp
 }
 
-func BuildToken(userId uuid.UUID, roleId int, appId int, merchantId uuid.UUID, hasId bool, customData string) map[string]interface{} {
+func BuildToken(userId uuid.UUID, roleId int, appId int, merchantId uuid.UUID, hasId bool, customData string) (map[string]interface{}, string) {
 
 	resultCheck := CheckUser(userId, roleId, appId, merchantId)
 
 	if !u.CheckOk(resultCheck) {
-		return resultCheck
+		return resultCheck, ""
 	}
 
 	result := resultCheck["account"].(*ResultBuildToken)
@@ -253,13 +253,13 @@ func BuildToken(userId uuid.UUID, roleId int, appId int, merchantId uuid.UUID, h
 		err := d.GetDB().Exec("UPDATE membership.roles set last_login_date = ? where user_id = ? and app_id = ? and merchant_id = ?",
 			time.Now(), result.UserId, appId, merchantId).Error
 		if err != nil {
-			return u.Message(false, "0x11027:Login success but, Connection error. Please retry")
+			return u.Message(false, "0x11027:Login success but, Connection error. Please retry"), ""
 		}
 	}
 
 	resp := u.Message(true, "0x11023:Logged In")
 	resp["account"] = account
-	return resp
+	return resp, tokenString
 }
 
 func LoginLockUpdate(userId uuid.UUID, strLoginErrorLock string) map[string]interface{} {
