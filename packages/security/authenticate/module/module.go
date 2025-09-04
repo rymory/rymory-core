@@ -45,11 +45,13 @@ func Invoke(in Request) (*u.Response, error) {
 		isHttpOnlyAuthCookie = false
 	}
 
+	ignoreStatus := in.Http.Method == "POST"
+
 	if CheckAuthEmpty(in.Http.CustomHeader) {
 		account := &Account{}
 		account.Email = strings.ToLower(in.Email)
 		account.Password = in.Password
-
+		ignoreStatus = false
 		resp, httpToken = Login(account.Email, account.Password, uuid.Nil)
 		if isHttpOnlyAuthCookie {
 			isHttpSSLStr := os.Getenv("isHttpSSL")
@@ -71,7 +73,8 @@ func Invoke(in Request) (*u.Response, error) {
 		if isOk, res := CheckJWTAutCookie(in.Http.CustomHeader.Authorization, context, in.Http.CustomHeader); !isOk {
 			return &res, nil
 		}
-		if isHttpOnlyAuthCookie {
+
+		if isHttpOnlyAuthCookie && !ignoreStatus {
 			if in.Http.Method == "GET" {
 				path := strings.Replace(in.Http.Path, "/", "", -1)
 
@@ -99,7 +102,7 @@ func Invoke(in Request) (*u.Response, error) {
 			}
 		}
 
-		if in.Http.CustomHeader.Authorization == in.Token {
+		if false {
 			resp, httpToken = LoginByToken(in.Email, in.Token, *context)
 		} else {
 
@@ -127,7 +130,7 @@ func Invoke(in Request) (*u.Response, error) {
 		}
 	}
 
-	if isHttpOnlyAuthCookie {
+	if isHttpOnlyAuthCookie && !ignoreStatus {
 		headers = SetJWTAutCookie(httpToken, in.Http.CustomHeader.Origin, cookie)
 		return u.RespondWithHeaders(resp, headers)
 	}
