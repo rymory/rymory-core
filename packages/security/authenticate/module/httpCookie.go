@@ -2,8 +2,10 @@ package authenticate
 
 import (
 	"fmt"
+	"log"
 	"net/url"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 
@@ -75,54 +77,80 @@ var SetJWTAutCookie = func(httpToken string, requestOrigin string, cookie Cookie
 
 var CheckJWTAutCookie = func(requestToken string, context *u.Context, headers u.CustomHeader) (bool, u.Response) {
 
-	if headers.XAPIKey == os.Getenv("x_api_key") {
-		return u.JwtAuthentication(requestToken, context)
+	isHttpOnlyAuthCookieStr := os.Getenv("isHttpOnlyAuthCookie")
+
+	isHttpOnlyAuthCookie, err := strconv.ParseBool(isHttpOnlyAuthCookieStr)
+	if err != nil {
+		// Geçersiz değer olursa default false
+		log.Printf("invalid value for isHttpOnlyAuthCookie: %s (defaulting to false)", isHttpOnlyAuthCookieStr)
+		isHttpOnlyAuthCookie = false
 	}
-
-	if headers.Cookie == "" {
-		return u.ResMessage(false, "Missing Cookie")
-	}
-
-	cookies := strings.Split(headers.Cookie, "; ")
-
-	var authTokenValue string
-
-	for _, cookie := range cookies {
-		parts := strings.SplitN(cookie, "=", 2)
-		if len(parts) == 2 && parts[0] == "authToken" {
-			authTokenValue = parts[1]
-			break
+	if isHttpOnlyAuthCookie {
+		if headers.XAPIKey == os.Getenv("x_api_key") {
+			return u.JwtAuthentication(requestToken, context)
 		}
+
+		if headers.Cookie == "" {
+			return u.ResMessage(false, "Missing Cookie")
+		}
+
+		cookies := strings.Split(headers.Cookie, "; ")
+
+		var authTokenValue string
+
+		for _, cookie := range cookies {
+			parts := strings.SplitN(cookie, "=", 2)
+			if len(parts) == 2 && parts[0] == "authToken" {
+				authTokenValue = parts[1]
+				break
+			}
+		}
+
+		if authTokenValue == "" {
+			return u.ResMessage(false, "0x11130:Missing auth token")
+		}
+
+		return u.JwtAuthentication(authTokenValue, context)
 	}
 
-	if authTokenValue == "" {
-		return u.ResMessage(false, "0x11130:Missing auth token")
-	}
-
-	return u.JwtAuthentication(authTokenValue, context)
+	return u.JwtAuthentication(requestToken, context)
 }
 
 var CheckAuthEmpty = func(headers u.CustomHeader) bool {
 
-	if headers.XAPIKey == os.Getenv("x_api_key") {
-		return headers.Authorization == ""
+	isHttpOnlyAuthCookieStr := os.Getenv("isHttpOnlyAuthCookie")
+
+	isHttpOnlyAuthCookie, err := strconv.ParseBool(isHttpOnlyAuthCookieStr)
+	if err != nil {
+		// Geçersiz değer olursa default false
+		log.Printf("invalid value for isHttpOnlyAuthCookie: %s (defaulting to false)", isHttpOnlyAuthCookieStr)
+		isHttpOnlyAuthCookie = false
 	}
 
-	if headers.Cookie == "" {
-		return true
-	}
+	if isHttpOnlyAuthCookie {
 
-	tokenValue := ""
-	cookies := strings.Split(headers.Cookie, "; ")
-	for _, cookie := range cookies {
-		parts := strings.Split(cookie, "=")
-		if len(parts) == 2 && parts[0] == "authToken" {
-			tokenValue = parts[1]
-			break
+		if headers.XAPIKey == os.Getenv("x_api_key") {
+			return headers.Authorization == ""
 		}
+
+		if headers.Cookie == "" {
+			return true
+		}
+
+		tokenValue := ""
+		cookies := strings.Split(headers.Cookie, "; ")
+		for _, cookie := range cookies {
+			parts := strings.Split(cookie, "=")
+			if len(parts) == 2 && parts[0] == "authToken" {
+				tokenValue = parts[1]
+				break
+			}
+		}
+
+		return tokenValue == ""
 	}
 
-	return tokenValue == ""
+	return headers.Authorization == ""
 }
 
 func isOriginAllowed(origin string) bool {

@@ -3,6 +3,8 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
+	"strconv"
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
@@ -26,8 +28,22 @@ func main() {
 
 	r.HandleFunc("/security/ticket", Ticket)
 
-	corsMiddleware := handlers.CORS(
-		handlers.AllowedOrigins([]string{"http://dev.local", "http://account.dev.local", "http://notes.dev.local"}),
+	isHttpOnlyAuthCookieStr := os.Getenv("isHttpOnlyAuthCookie")
+
+	isHttpOnlyAuthCookie, err := strconv.ParseBool(isHttpOnlyAuthCookieStr)
+	if err != nil {
+		// Geçersiz değer olursa default false
+		log.Printf("invalid value for isHttpOnlyAuthCookie: %s (defaulting to false)", isHttpOnlyAuthCookieStr)
+		isHttpOnlyAuthCookie = false
+	}
+
+	allowOrigins := []string{"*"}
+	if isHttpOnlyAuthCookie {
+		allowOrigins = []string{"http://dev.local", "http://account.dev.local", "http://notes.dev.local"}
+	}
+
+	corsOpts := []handlers.CORSOption{
+		handlers.AllowedOrigins(allowOrigins),
 		handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}),
 		handlers.AllowedHeaders([]string{
 			"Content-Type",
@@ -36,10 +52,14 @@ func main() {
 			// "Access-Control-Expose-Headers",
 		}),
 		handlers.MaxAge(3600),
-		handlers.AllowCredentials(),
 		// handlers.ExposedHeaders([]string{"Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"}),
-	)
+	}
 
+	if isHttpOnlyAuthCookie {
+		corsOpts = append(corsOpts, handlers.AllowCredentials())
+	}
+
+	corsMiddleware := handlers.CORS(corsOpts...)
 	handler := corsMiddleware(r)
 
 	log.Fatal(http.ListenAndServe(":8080", handler))

@@ -3,6 +3,9 @@ package authenticate
 import (
 	"encoding/json"
 	"fmt"
+	"log"
+	"os"
+	"strconv"
 	"strings"
 
 	"github.com/google/uuid"
@@ -33,39 +36,67 @@ func Invoke(in Request) (*u.Response, error) {
 	var headers map[string]string
 	var cookie CookieFeature
 
+	isHttpOnlyAuthCookieStr := os.Getenv("isHttpOnlyAuthCookie")
+
+	isHttpOnlyAuthCookie, err := strconv.ParseBool(isHttpOnlyAuthCookieStr)
+	if err != nil {
+		// Geçersiz değer olursa default false
+		log.Printf("invalid value for isHttpOnlyAuthCookie: %s (defaulting to false)", isHttpOnlyAuthCookieStr)
+		isHttpOnlyAuthCookie = false
+	}
+
 	if CheckAuthEmpty(in.Http.CustomHeader) {
 		account := &Account{}
 		account.Email = strings.ToLower(in.Email)
 		account.Password = in.Password
 
 		resp, httpToken = Login(account.Email, account.Password, uuid.Nil)
-		cookie = CookieFeature{
-			Secure:   false,
-			Domain:   ".dev.local",
-			SameSite: SameSiteLax,
+		if isHttpOnlyAuthCookie {
+			isHttpSSLStr := os.Getenv("isHttpSSL")
+
+			isHttpSSL, err := strconv.ParseBool(isHttpSSLStr)
+			if err != nil {
+				// Geçersiz değer olursa default false
+				log.Printf("invalid value for isHttpOnlyAuthCookie: %s (defaulting to false)", isHttpOnlyAuthCookieStr)
+				isHttpSSL = false
+			}
+			cookie = CookieFeature{
+				Secure:   isHttpSSL,
+				Domain:   ".dev.local",
+				SameSite: SameSiteLax,
+			}
 		}
 	} else {
 		context := &u.Context{}
 		if isOk, res := CheckJWTAutCookie(in.Http.CustomHeader.Authorization, context, in.Http.CustomHeader); !isOk {
 			return &res, nil
 		}
+		if isHttpOnlyAuthCookie {
+			if in.Http.Method == "GET" {
+				path := strings.Replace(in.Http.Path, "/", "", -1)
 
-		if in.Http.Method == "GET" {
-			path := strings.Replace(in.Http.Path, "/", "", -1)
-
-			if path != "" {
-				json.Unmarshal([]byte(path), &in)
-				in.Http.Path = ""
+				if path != "" {
+					json.Unmarshal([]byte(path), &in)
+					in.Http.Path = ""
+				}
 			}
-		}
 
-		cookieDomain := strings.TrimPrefix(in.Http.CustomHeader.Origin, "http://")
-		cookieDomain = strings.TrimPrefix(cookieDomain, "https://")
-		fmt.Println(cookieDomain)
-		cookie = CookieFeature{
-			Secure:   false,
-			Domain:   cookieDomain,
-			SameSite: SameSiteStrict,
+			cookieDomain := strings.TrimPrefix(in.Http.CustomHeader.Origin, "http://")
+			cookieDomain = strings.TrimPrefix(cookieDomain, "https://")
+			fmt.Println(cookieDomain)
+			isHttpSSLStr := os.Getenv("isHttpSSL")
+
+			isHttpSSL, err := strconv.ParseBool(isHttpSSLStr)
+			if err != nil {
+				// Geçersiz değer olursa default false
+				log.Printf("invalid value for isHttpOnlyAuthCookie: %s (defaulting to false)", isHttpOnlyAuthCookieStr)
+				isHttpSSL = false
+			}
+			cookie = CookieFeature{
+				Secure:   isHttpSSL,
+				Domain:   cookieDomain,
+				SameSite: SameSiteStrict,
+			}
 		}
 
 		if in.Http.CustomHeader.Authorization == in.Token {
@@ -81,23 +112,27 @@ func Invoke(in Request) (*u.Response, error) {
 			member.CustomData = in.CustomData
 
 			path := strings.Replace(in.Http.Path, "/", "", -1)
+			if path == "securityauthenticate" {
+				path = ""
+			}
 
 			switch path {
 			case "":
 				resp, httpToken = RenewToken(member, *context)
 				fmt.Println(httpToken)
-				break
 			case "change":
 				member.UserId = in.UserId
 				resp, httpToken = ChangeSession(member, *context)
-				break
 			}
 		}
 	}
 
-	headers = SetJWTAutCookie(httpToken, in.Http.CustomHeader.Origin, cookie)
+	if isHttpOnlyAuthCookie {
+		headers = SetJWTAutCookie(httpToken, in.Http.CustomHeader.Origin, cookie)
+		return u.RespondWithHeaders(resp, headers)
+	}
 
-	return u.RespondWithHeaders(resp, headers)
+	return u.Respond(resp)
 }
 
 var LoginByToken = func(email string, token string, context u.Context) (map[string]interface{}, string) {

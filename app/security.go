@@ -6,8 +6,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
+	"os"
 	"role"
+	"strconv"
 	"strings"
 	"ticket"
 	"validation"
@@ -22,22 +25,37 @@ func Authenticate(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println("Endpoint hit: Authenticate")
 
+	isHttpOnlyAuthCookieStr := os.Getenv("isHttpOnlyAuthCookie")
+
+	isHttpOnlyAuthCookie, err := strconv.ParseBool(isHttpOnlyAuthCookieStr)
+	if err != nil {
+		// Geçersiz değer olursa default false
+		log.Printf("invalid value for isHttpOnlyAuthCookie: %s (defaulting to false)", isHttpOnlyAuthCookieStr)
+		isHttpOnlyAuthCookie = false
+	}
+
 	in.Http.Path = strings.Replace(r.URL.Path, "security/authenticate/", "", -1)
 
 	in.Http.CustomHeader.Authorization = r.Header.Get("authorization")
 	in.Http.Method = r.Method
-	in.Http.CustomHeader.Origin = r.Header.Get("origin")
-	in.Http.CustomHeader.Cookie = r.Header.Get("cookie")
+
+	if isHttpOnlyAuthCookie {
+		in.Http.CustomHeader.Origin = r.Header.Get("origin")
+		in.Http.CustomHeader.Cookie = r.Header.Get("cookie")
+	}
 
 	resp, _ := authenticate.Invoke(in)
 
 	w.Header().Set("Content-Type", resp.Headers["Content-Type"])
-	w.Header().Set("Set-Cookie", resp.Headers["Set-Cookie"])
 
-	w.Header().Set("Access-Control-Allow-Origin", resp.Headers["Access-Control-Allow-Origin"])
-	w.Header().Set("Access-Control-Allow-Credentials", resp.Headers["Access-Control-Allow-Credentials"])
-	w.Header().Set("Access-Control-Allow-Headers", resp.Headers["Access-Control-Allow-Headers"])
-	w.Header().Set("Access-Control-Allow-Methods", resp.Headers["GET, POST, OPTIONS"])
+	if isHttpOnlyAuthCookie {
+		w.Header().Set("Set-Cookie", resp.Headers["Set-Cookie"])
+
+		w.Header().Set("Access-Control-Allow-Origin", resp.Headers["Access-Control-Allow-Origin"])
+		w.Header().Set("Access-Control-Allow-Credentials", resp.Headers["Access-Control-Allow-Credentials"])
+		w.Header().Set("Access-Control-Allow-Headers", resp.Headers["Access-Control-Allow-Headers"])
+		w.Header().Set("Access-Control-Allow-Methods", resp.Headers["GET, POST, OPTIONS"])
+	}
 
 	w.Write([]byte(resp.Body))
 
