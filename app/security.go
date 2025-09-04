@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"role"
+	"strings"
 	"ticket"
 	"validation"
 )
@@ -21,6 +22,8 @@ func Authenticate(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println("Endpoint hit: Authenticate")
 
+	in.Http.Path = strings.Replace(r.URL.Path, "security/authenticate/", "", -1)
+
 	in.Http.CustomHeader.Authorization = r.Header.Get("authorization")
 	in.Http.Method = r.Method
 	in.Http.CustomHeader.Origin = r.Header.Get("origin")
@@ -30,8 +33,11 @@ func Authenticate(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", resp.Headers["Content-Type"])
 	w.Header().Set("Set-Cookie", resp.Headers["Set-Cookie"])
+
 	w.Header().Set("Access-Control-Allow-Origin", resp.Headers["Access-Control-Allow-Origin"])
 	w.Header().Set("Access-Control-Allow-Credentials", resp.Headers["Access-Control-Allow-Credentials"])
+	w.Header().Set("Access-Control-Allow-Headers", resp.Headers["Access-Control-Allow-Headers"])
+	w.Header().Set("Access-Control-Allow-Methods", resp.Headers["GET, POST, OPTIONS"])
 
 	w.Write([]byte(resp.Body))
 

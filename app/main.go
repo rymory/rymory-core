@@ -13,6 +13,8 @@ func main() {
 
 	// r.Use(authMiddleware)
 
+	r.HandleFunc("/security/authenticate/{key}", Authenticate)
+
 	r.HandleFunc("/security/authenticate", Authenticate) // ----> To request all groceries
 	r.HandleFunc("/security/account", Account)
 	r.HandleFunc("/security/role", Role)
@@ -25,7 +27,7 @@ func main() {
 	r.HandleFunc("/security/ticket", Ticket)
 
 	corsMiddleware := handlers.CORS(
-		handlers.AllowedOrigins([]string{"http://localhost", "http://account.localhost", "http://note.localhost"}),
+		handlers.AllowedOrigins([]string{"http://dev.local", "http://account.dev.local", "http://notes.dev.local"}),
 		handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}),
 		handlers.AllowedHeaders([]string{
 			"Content-Type",

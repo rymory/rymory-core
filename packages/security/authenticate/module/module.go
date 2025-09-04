@@ -1,6 +1,7 @@
 package authenticate
 
 import (
+	"encoding/json"
 	"fmt"
 	"strings"
 
@@ -30,17 +31,41 @@ func Invoke(in Request) (*u.Response, error) {
 	var resp map[string]interface{}
 	var httpToken string
 	var headers map[string]string
+	var cookie CookieFeature
 
-	if in.Http.CustomHeader.Authorization == "" {
+	if CheckAuthEmpty(in.Http.CustomHeader) {
 		account := &Account{}
 		account.Email = strings.ToLower(in.Email)
 		account.Password = in.Password
 
 		resp, httpToken = Login(account.Email, account.Password, uuid.Nil)
+		cookie = CookieFeature{
+			Secure:   false,
+			Domain:   ".dev.local",
+			SameSite: SameSiteLax,
+		}
 	} else {
 		context := &u.Context{}
-		if isOk, res := u.CheckJWTAutCookie(in.Http.CustomHeader.Authorization, context, in.Http.CustomHeader); !isOk {
+		if isOk, res := CheckJWTAutCookie(in.Http.CustomHeader.Authorization, context, in.Http.CustomHeader); !isOk {
 			return &res, nil
+		}
+
+		if in.Http.Method == "GET" {
+			path := strings.Replace(in.Http.Path, "/", "", -1)
+
+			if path != "" {
+				json.Unmarshal([]byte(path), &in)
+				in.Http.Path = ""
+			}
+		}
+
+		cookieDomain := strings.TrimPrefix(in.Http.CustomHeader.Origin, "http://")
+		cookieDomain = strings.TrimPrefix(cookieDomain, "https://")
+		fmt.Println(cookieDomain)
+		cookie = CookieFeature{
+			Secure:   false,
+			Domain:   cookieDomain,
+			SameSite: SameSiteStrict,
 		}
 
 		if in.Http.CustomHeader.Authorization == in.Token {
@@ -56,17 +81,21 @@ func Invoke(in Request) (*u.Response, error) {
 			member.CustomData = in.CustomData
 
 			path := strings.Replace(in.Http.Path, "/", "", -1)
-			if path == "" {
+
+			switch path {
+			case "":
 				resp, httpToken = RenewToken(member, *context)
-			} else if path == "change" {
+				fmt.Println(httpToken)
+				break
+			case "change":
 				member.UserId = in.UserId
 				resp, httpToken = ChangeSession(member, *context)
+				break
 			}
 		}
 	}
 
-	fmt.Println(in.Http.CustomHeader.Origin)
-	headers = u.SetJWTAutCookie(httpToken, in.Http.CustomHeader.Origin, false)
+	headers = SetJWTAutCookie(httpToken, in.Http.CustomHeader.Origin, cookie)
 
 	return u.RespondWithHeaders(resp, headers)
 }
