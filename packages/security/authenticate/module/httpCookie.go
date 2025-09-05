@@ -13,9 +13,10 @@ import (
 )
 
 type CookieFeature struct {
-	Secure   bool
-	SameSite SameSite
-	Domain   string
+	Secure     bool
+	SameSite   SameSite
+	Domain     string
+	CookieName string
 }
 
 type SameSite int
@@ -37,8 +38,8 @@ var SetJWTAutCookie = func(httpToken string, requestOrigin string, cookie Cookie
 		var cookieStr string
 
 		cookieStr = fmt.Sprintf(
-			"authToken=Bearer %s; Expires=%s; Path=/; HttpOnly;",
-			token, exp,
+			"%s=Bearer %s; Expires=%s; Path=/; HttpOnly;",
+			cookie.CookieName, token, exp,
 		)
 
 		if cookie.Secure {
@@ -96,14 +97,30 @@ var CheckJWTAutCookie = func(requestToken string, context *u.Context, headers u.
 
 		cookies := strings.Split(headers.Cookie, "; ")
 
-		var authTokenValue string
+		var lowToken, strongToken string
 
 		for _, cookie := range cookies {
-			parts := strings.SplitN(cookie, "=", 2)
-			if len(parts) == 2 && parts[0] == "authToken" {
-				authTokenValue = parts[1]
-				break
+			parts := strings.SplitN(strings.TrimSpace(cookie), "=", 2)
+			if len(parts) != 2 {
+				continue
 			}
+
+			name := parts[0]
+			value := parts[1]
+
+			switch name {
+			case "strong_authToken":
+				strongToken = value
+			case "low_authToken":
+				lowToken = value
+			}
+		}
+
+		var authTokenValue string
+		if strongToken != "" {
+			authTokenValue = strongToken
+		} else if lowToken != "" {
+			authTokenValue = lowToken
 		}
 
 		if authTokenValue == "" {
@@ -137,14 +154,32 @@ var CheckAuthEmpty = func(headers u.CustomHeader) bool {
 			return true
 		}
 
-		tokenValue := ""
 		cookies := strings.Split(headers.Cookie, "; ")
+
+		var lowToken, strongToken string
+
 		for _, cookie := range cookies {
-			parts := strings.Split(cookie, "=")
-			if len(parts) == 2 && parts[0] == "authToken" {
-				tokenValue = parts[1]
-				break
+			parts := strings.SplitN(strings.TrimSpace(cookie), "=", 2)
+			if len(parts) != 2 {
+				continue
 			}
+
+			name := parts[0]
+			value := parts[1]
+
+			switch name {
+			case "strong_authToken":
+				strongToken = value
+			case "low_authToken":
+				lowToken = value
+			}
+		}
+
+		var tokenValue string
+		if strongToken != "" {
+			tokenValue = strongToken
+		} else if lowToken != "" {
+			tokenValue = lowToken
 		}
 
 		return tokenValue == ""
