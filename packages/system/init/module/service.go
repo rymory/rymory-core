@@ -104,7 +104,7 @@ func (account *Account) Create() map[string]interface{} {
 
 	generatedPassword := ""
 
-	if account.Email == os.Getenv("root_account") {
+	if account.Email == os.Getenv("ROOT_ACCOUNT") {
 
 		account.Nickname = "root"
 		account.CreatedAt = time.Date(2018, time.September, 28, 0, 0, 0, 0, time.Local)

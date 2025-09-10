@@ -43,7 +43,7 @@ func Invoke(in Request) (*u.Response, error) {
 			MigrationModels()
 			resp = u.Message(true, "0x11034:Migration done..")
 			if len(in.Projects) > 0 {
-				rootEmail := strings.ToLower(os.Getenv("root_account"))
+				rootEmail := strings.ToLower(os.Getenv("ROOT_ACCOUNT"))
 				createNewProject(rootEmail, context.UserId, in.Projects)
 				resp = u.Message(true, "0x11035:Migration & new project done..")
 			}
@@ -56,7 +56,7 @@ var CreateRootAccount = func(projects []ProjectRequest) map[string]interface{} {
 
 	rootAccount := &Account{}
 
-	rootAccount.Email = strings.ToLower(os.Getenv("root_account"))
+	rootAccount.Email = strings.ToLower(os.Getenv("ROOT_ACCOUNT"))
 	rootAccount.Password = "12345678"
 
 	rootResp := rootAccount.Create()

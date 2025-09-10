@@ -116,7 +116,7 @@ var JwtTicket = func(requestToken string, ticketContext *u.Context) (bool, map[s
 	tk := &u.Token{}
 
 	token, err := jwt.ParseWithClaims(tokenPart, tk, func(token *jwt.Token) (interface{}, error) {
-		return []byte(os.Getenv("ticket_secret_key")), nil
+		return []byte(os.Getenv("TICKET_SECRET_KEY")), nil
 	})
 
 	if err != nil {

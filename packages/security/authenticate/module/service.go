@@ -162,13 +162,13 @@ func Login(email, password string, tokenUserId uuid.UUID) map[string]interface{}
 
 	roleId := u.None
 
-	if email == os.Getenv("root_account") {
+	if email == os.Getenv("ROOT_ACCOUNT") {
 		account.Nickname = "root"
 		account.CreatedAt = time.Date(2018, time.September, 28, 0, 0, 0, 0, time.Local)
 		account.AboutMe = "I have root rights"
 		subject = "all rights reserved"
 		roleId = u.Root
-		// token_root_secret_key
+		// TOKEN_ROOT_SECRET_KEY
 	}
 
 	//Worked! 0x11023:Logged In
@@ -176,17 +176,17 @@ func Login(email, password string, tokenUserId uuid.UUID) map[string]interface{}
 	account.ID = 0
 
 	atClaims := jwt.StandardClaims{}
-	atClaims.Issuer = os.Getenv("jwt_issuer")
+	atClaims.Issuer = os.Getenv("JWT_ISSUER")
 	atClaims.ExpiresAt = time.Now().Add(time.Minute * 1).Unix()
 	atClaims.Subject = subject
 
 	//Create JWT token
 	tk := &u.Token{UserId: account.UserId, RoleId: roleId, StandardClaims: atClaims}
 	token := jwt.NewWithClaims(jwt.GetSigningMethod("HS512"), tk)
-	tokenString, _ := token.SignedString([]byte(os.Getenv("token_secret_key")))
+	tokenString, _ := token.SignedString([]byte(os.Getenv("TOKEN_SECRET_KEY")))
 
-	if email == os.Getenv("root_account") {
-		tokenString, _ = token.SignedString([]byte(os.Getenv("token_root_secret_key")))
+	if email == os.Getenv("ROOT_ACCOUNT") {
+		tokenString, _ = token.SignedString([]byte(os.Getenv("TOKEN_ROOT_SECRET_KEY")))
 	}
 
 	account.Token = tokenString //Store the token in the response
@@ -238,13 +238,13 @@ func BuildToken(userId uuid.UUID, roleId int, appId int, merchantId uuid.UUID, h
 	account := &BuildAccount{}
 
 	atClaims := jwt.StandardClaims{}
-	atClaims.Issuer = os.Getenv("jwt_issuer")
+	atClaims.Issuer = os.Getenv("JWT_ISSUER")
 	atClaims.ExpiresAt = time.Now().Add(time.Hour * 100).Unix()
 
 	//Create JWT token
 	tk := &u.Token{UserId: userId, RoleId: roleId, AppId: appId, MerchantId: merchantId, HasId: hasId, ProjectId: projectId, CustomData: customData, InitCompleted: initCompleted, StandardClaims: atClaims}
 	token := jwt.NewWithClaims(jwt.GetSigningMethod("HS512"), tk)
-	tokenString, _ := token.SignedString([]byte(os.Getenv("token_secret_key")))
+	tokenString, _ := token.SignedString([]byte(os.Getenv("TOKEN_SECRET_KEY")))
 	account.Token = tokenString //Store the token in the response
 	account.UserId = userId
 	account.LastLoginDate = result.LastLoginDate

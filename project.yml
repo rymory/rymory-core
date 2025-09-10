@@ -1,12 +1,12 @@
 packages:
   - name: security
     environment:
-        jwt_issuer : ${jwt_issuer}
-        root_account : ${root_account}
-        token_secret_key : ${token_secret_key}
-        token_root_secret_key : ${token_root_secret_key}
+        JWT_ISSUER : ${JWT_ISSUER}
+        ROOT_ACCOUNT : ${ROOT_ACCOUNT}
+        TOKEN_SECRET_KEY : ${TOKEN_SECRET_KEY}
+        TOKEN_ROOT_SECRET_KEY : ${TOKEN_ROOT_SECRET_KEY}
         database_url : ${database_url}
-        ticket_secret_key : ${ticket_secret_key}
+        TICKET_SECRET_KEY : ${TICKET_SECRET_KEY}
     functions:
       - name: authenticate
         runtime: go:1.20
@@ -52,10 +52,10 @@ packages:
     
   - name: system
     environment:
-        jwt_issuer : ${jwt_issuer}
-        root_account : ${root_account}
-        token_secret_key : ${token_secret_key}
-        token_root_secret_key : ${token_root_secret_key}
+        JWT_ISSUER : ${JWT_ISSUER}
+        ROOT_ACCOUNT : ${ROOT_ACCOUNT}
+        TOKEN_SECRET_KEY : ${TOKEN_SECRET_KEY}
+        TOKEN_ROOT_SECRET_KEY : ${TOKEN_ROOT_SECRET_KEY}
         database_url : ${database_url}
         SPACES_KEY: ${SPACES_KEY}
         SPACES_SECRET: ${SPACES_SECRET}
@@ -119,9 +119,9 @@ packages:
   #   packages:
   # - name: security
   #   environment:
-  #       jwt_issuer : demo.com
-  #       root_account : demo@demo.com
-  #       token_secret_key : uzunincebiryoldayimsarkisiniburadantumsevdiklerimehediyeetmekistiyorummumkunmuduracaba?
+  #       JWT_ISSUER : demo.com
+  #       ROOT_ACCOUNT : demo@demo.com
+  #       TOKEN_SECRET_KEY : uzunincebiryoldayimsarkisiniburadantumsevdiklerimehediyeetmekistiyorummumkunmuduracaba?
   #       database_url : postgresql://doadmin:AVNS_-BLQB9eemH3luUd6piS@db-postgresql-lon1-32892-do-user-14029732-0.c.db.ondigitalocean.com:25060/defaultdb?sslmode=require
   #   functions:
   #     - name: authenticate
@@ -152,9 +152,9 @@ packages:
     
   # - name: system
   #   environment:
-  #       jwt_issuer : demo.com
-  #       root_account : demo@demo.com
-  #       token_secret_key : uzunincebiryoldayimsarkisiniburadantumsevdiklerimehediyeetmekistiyorummumkunmuduracaba?
+  #       JWT_ISSUER : demo.com
+  #       ROOT_ACCOUNT : demo@demo.com
+  #       TOKEN_SECRET_KEY : uzunincebiryoldayimsarkisiniburadantumsevdiklerimehediyeetmekistiyorummumkunmuduracaba?
   #       database_url : postgresql://doadmin:AVNS_-BLQB9eemH3luUd6piS@db-postgresql-lon1-32892-do-user-14029732-0.c.db.ondigitalocean.com:25060/defaultdb?sslmode=require
   #   functions:
   #     - name: init
