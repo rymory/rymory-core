@@ -119,8 +119,8 @@ packages:
   #   packages:
   # - name: security
   #   environment:
-  #       jwt_issuer : security.lemoras.com
-  #       root_account : root@lemoras.com
+  #       jwt_issuer : demo.com
+  #       root_account : demo@demo.com
   #       token_secret_key : uzunincebiryoldayimsarkisiniburadantumsevdiklerimehediyeetmekistiyorummumkunmuduracaba?
   #       database_url : postgresql://doadmin:AVNS_-BLQB9eemH3luUd6piS@db-postgresql-lon1-32892-do-user-14029732-0.c.db.ondigitalocean.com:25060/defaultdb?sslmode=require
   #   functions:
@@ -152,8 +152,8 @@ packages:
     
   # - name: system
   #   environment:
-  #       jwt_issuer : security.lemoras.com
-  #       root_account : root@lemoras.com
+  #       jwt_issuer : demo.com
+  #       root_account : demo@demo.com
   #       token_secret_key : uzunincebiryoldayimsarkisiniburadantumsevdiklerimehediyeetmekistiyorummumkunmuduracaba?
   #       database_url : postgresql://doadmin:AVNS_-BLQB9eemH3luUd6piS@db-postgresql-lon1-32892-do-user-14029732-0.c.db.ondigitalocean.com:25060/defaultdb?sslmode=require
   #   functions:
