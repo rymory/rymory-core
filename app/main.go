@@ -40,7 +40,7 @@ func main() {
 
 	handler := corsMiddleware(r)
 
-	log.Fatal(http.ListenAndServe(":8080", handler))
+	log.Fatal(http.ListenAndServe(":80", handler))
 	//http.Handle("/", r)
 }
 
