@@ -21,8 +21,12 @@ func Authenticate(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println("Endpoint hit: Authenticate")
 
-	in.Http.CustomHeader.Authorization = r.Header.Get("authorization")
+	in.Http.CustomHeader.Authorization = r.Header.Get("Authorization")
 	in.Http.Method = r.Method
+	fmt.Println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX   ")
+	fmt.Println("XXXXXXXXXXXXXXXXXXXX:   " + r.Header.Get("Authorization"))
+
+	fmt.Println("XXXXXXXXXXXXXXXXXXXX:   " + r.Header.Get("authorization"))
 
 	resp, _ := authenticate.Invoke(in)
 	w.Write([]byte(resp.Body))
@@ -39,9 +43,13 @@ func Account(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println("Endpoint hit: Account")
 
-	in.Http.CustomHeader.Authorization = r.Header.Get("authorization")
+	in.Http.CustomHeader.Authorization = r.Header.Get("Authorization")
 	in.Http.Method = r.Method
 
+	fmt.Println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX   ")
+	fmt.Println("XXXXXXXXXXXXXXXXXXXX:   " + r.Header.Get("Authorization"))
+
+	fmt.Println("XXXXXXXXXXXXXXXXXXXX:   " + r.Header.Get("authorization"))
 	resp, _ := account.Invoke(in)
 	w.Write([]byte(resp.Body))
 }

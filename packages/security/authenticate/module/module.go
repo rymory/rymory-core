@@ -1,6 +1,7 @@
 package authenticate
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/google/uuid"
@@ -37,6 +38,7 @@ func Invoke(in Request) (*u.Response, error) {
 	} else {
 
 		context := &u.Context{}
+		fmt.Println("XXXXXXXXXXXXXXXXXXXX:   " + in.Http.CustomHeader.Authorization)
 		if isOk, res := u.JwtAuthentication(in.Http.CustomHeader.Authorization, context); !isOk {
 			return &res, nil
 		}

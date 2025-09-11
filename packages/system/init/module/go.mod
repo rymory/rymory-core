@@ -17,8 +17,8 @@ require (
 )
 
 require (
-	github.com/lemoras/goutils/api v1.0.3
-	github.com/lemoras/goutils/db v1.0.1
+	github.com/lemoras/goutils/api v1.0.7
+	github.com/lemoras/goutils/db v1.0.2
 )
 
 require github.com/jinzhu/inflection v1.0.0 // indirect

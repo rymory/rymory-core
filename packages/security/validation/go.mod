@@ -3,7 +3,7 @@ module action
 replace validation => ./module
 
 require (
-	github.com/lemoras/goutils/api v1.0.3
+	github.com/lemoras/goutils/api v1.0.7
 	validation v0.0.0-00010101000000-000000000000
 )
 

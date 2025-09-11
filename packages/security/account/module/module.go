@@ -20,13 +20,14 @@ func Invoke(in Request) (*u.Response, error) {
 
 	var resp map[string]interface{}
 
-	if in.Http.Method == "GET" {
+	switch in.Http.Method {
+	case "GET":
 		context := &u.Context{}
 		if isOk, res := u.JwtAuthentication(in.Http.CustomHeader.Authorization, context); !isOk {
 			return &res, nil
 		}
 		resp = GetAccount(*context)
-	} else if in.Http.Method == "POST" {
+	case "POST":
 		account := Account{}
 
 		account.Password = in.Password
@@ -37,7 +38,7 @@ func Invoke(in Request) (*u.Response, error) {
 
 		resp = CreateAccount(account)
 
-	} else if in.Http.Method == "PUT" {
+	case "PUT":
 
 		context := &u.Context{}
 		if isOk, res := u.JwtAuthentication(in.Http.CustomHeader.Authorization, context); !isOk {
