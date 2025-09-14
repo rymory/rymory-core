@@ -1,12 +1,20 @@
 packages:
   - name: security
     environment:
-        JWT_ISSUER : ${JWT_ISSUER}
-        ROOT_ACCOUNT : ${ROOT_ACCOUNT}
-        TOKEN_SECRET_KEY : ${TOKEN_SECRET_KEY}
-        TOKEN_ROOT_SECRET_KEY : ${TOKEN_ROOT_SECRET_KEY}
-        database_url : ${database_url}
-        TICKET_SECRET_KEY : ${TICKET_SECRET_KEY}
+        JWT_ISSUER: ${JWT_ISSUER}
+        ROOT_ACCOUNT: ${ROOT_ACCOUNT}
+        TOKEN_SECRET_KEY: ${TOKEN_SECRET_KEY}
+        TOKEN_ROOT_SECRET_KEY: ${TOKEN_ROOT_SECRET_KEY}
+        DATABASE_URL: ${DATABASE_URL}
+        SPACES_KEY: ${SPACES_KEY}
+        SPACES_SECRET: ${SPACES_SECRET}
+        SPACES_NAME: ${SPACES_NAME}
+        SPACES_ENDPOINT: ${SPACES_ENDPOINT}
+        VALID_API_URL: ${VALID_API_URL}
+        TICKET_SECRET_KEY: ${TICKET_SECRET_KEY}
+        RATE_SECRET_KEY: ${RATE_SECRET_KEY}
+        X_API_KEY: ${X_API_KEY}
+        COOKIE_ALLOWED_DOMAINS: ${COOKIE_ALLOWED_DOMAINS}
     functions:
       - name: authenticate
         runtime: go:1.20
@@ -38,17 +46,6 @@ packages:
         limits:
           timeout: 3000
           memory: 128
-    # actions:
-    #   - name: authenticate
-    #     runtime: 'go:1.20' #runtime: 'go:default'
-    #   - name: account
-    #     runtime: 'go:1.20' #runtime: 'go:default'
-    #   - name: role
-    #     runtime: 'go:1.20' #runtime: 'go:default'
-    #   - name: validation
-    #     runtime: 'go:1.20' #runtime: 'go:default'
-    #   - name: ticket
-    #     runtime: 'go:1.20' #runtime: 'go:default'
     
   - name: system
     environment:
@@ -56,12 +53,12 @@ packages:
         ROOT_ACCOUNT : ${ROOT_ACCOUNT}
         TOKEN_SECRET_KEY : ${TOKEN_SECRET_KEY}
         TOKEN_ROOT_SECRET_KEY : ${TOKEN_ROOT_SECRET_KEY}
-        database_url : ${database_url}
+        DATABASE_URL: ${DATABASE_URL}
         SPACES_KEY: ${SPACES_KEY}
         SPACES_SECRET: ${SPACES_SECRET}
-        SPACES_ENDPOINT: "${SPACES_ENDPOINT}"
-        SPACES_NAME: "${SPACES_NAME}"
-        VALID_API_URL: "${VALID_API_URL}"
+        SPACES_ENDPOINT: ${SPACES_ENDPOINT}
+        SPACES_NAME: ${SPACES_NAME}
+        VALID_API_URL: ${VALID_API_URL}
     functions:
       - name: file
         runtime: nodejs:14
@@ -99,103 +96,3 @@ packages:
         limits:
           timeout: 3000
           memory: 512
-    # actions:
-    #   - name: file
-    #     runtime: 'go:1.20' #runtime: 'go:default'
-    #   - name: init
-    #     runtime: 'go:1.20' #runtime: 'go:default'
-    #   - name: zombie
-    #     runtime: 'go:1.20' #runtime: 'go:default'
-    #   - name: project
-    #     runtime: 'go:1.20' #runtime: 'go:default'
-    #   - name: member
-    #     runtime: 'go:1.20' #runtime: 'go:default'
-    #   - name: space
-    #     runtime: 'go:1.20' #runtime: 'go:default'
-
-
-
-
-  #   packages:
-  # - name: security
-  #   environment:
-  #       JWT_ISSUER : demo.com
-  #       ROOT_ACCOUNT : demo@demo.com
-  #       TOKEN_SECRET_KEY : uzunincebiryoldayimsarkisiniburadantumsevdiklerimehediyeetmekistiyorummumkunmuduracaba?
-  #       database_url : postgresql://doadmin:AVNS_-BLQB9eemH3luUd6piS@db-postgresql-lon1-32892-do-user-14029732-0.c.db.ondigitalocean.com:25060/defaultdb?sslmode=require
-  #   functions:
-  #     - name: authenticate
-  #       limits:
-  #         timeout: 3000
-  #         memory: 128
-  #     - name: account
-  #       limits:
-  #         timeout: 3000
-  #         memory: 128
-  #     - name: role
-  #       limits:
-  #         timeout: 3000
-  #         memory: 128
-  #     - name: validation
-  #       limits:
-  #         timeout: 3000
-  #         memory: 128
-  #   # actions:
-  #   #   - name: authenticate
-  #   #     runtime: 'go:1.20' #runtime: 'go:default'
-  #   #   - name: account
-  #   #     runtime: 'go:1.20' #runtime: 'go:default'
-  #   #   - name: role
-  #   #     runtime: 'go:1.20' #runtime: 'go:default'
-  #   #   - name: validation
-  #   #     runtime: 'go:1.20' #runtime: 'go:default'
-    
-  # - name: system
-  #   environment:
-  #       JWT_ISSUER : demo.com
-  #       ROOT_ACCOUNT : demo@demo.com
-  #       TOKEN_SECRET_KEY : uzunincebiryoldayimsarkisiniburadantumsevdiklerimehediyeetmekistiyorummumkunmuduracaba?
-  #       database_url : postgresql://doadmin:AVNS_-BLQB9eemH3luUd6piS@db-postgresql-lon1-32892-do-user-14029732-0.c.db.ondigitalocean.com:25060/defaultdb?sslmode=require
-  #   functions:
-  #     - name: init
-  #       limits:
-  #         timeout: 3000
-  #         memory: 128
-  #     - name: zombie
-  #       limits:
-  #         timeout: 3000
-  #         memory: 128
-  #     - name: project
-  #       limits:
-  #         timeout: 3000
-  #         memory: 128
-  #     - name: member
-  #       limits:
-  #         timeout: 3000
-  #         memory: 128
-  #   # actions:
-  #   #   - name: init
-  #   #     runtime: 'go:1.20' #runtime: 'go:default'
-  #   #   - name: zombie
-  #   #     runtime: 'go:1.20' #runtime: 'go:default'
-
-  # - name: presign
-  #   environment:
-  #       SPACES_KEY: DO00CV4RTNYCUPE6LH87
-  #       SPACES_SECRET: AibI7SUe58QHtl5ZT7btvkxFB4C/UyjtbktKWKW7f1s
-  #       BUCKET: lemoras
-  #       REGION: nyc3
-  #   functions:
-  #     - name: url
-  #       limits:
-  #         timeout: 3000
-  #         memory: 128
-  #     - name: test
-  #       limits:
-  #         timeout: 3000
-  #         memory: 128
-  #   # actions:
-  #   #   - name: url
-  #   #     runtime: 'go:default'
-  #   #   - name: test
-  #   #     runtime: 'go:default'
