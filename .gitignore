@@ -25,14 +25,14 @@ profile.cov
 go.work.sum
 
 # env file
-.env
+# .env
 
 # Editor/IDE
 # .idea/
 # .vscode/
 
-service.sh
-clear.sh
+# service.sh
+# clear.sh
 app/.env
 packages/security/account/.env
 packages/security/authenticate/.env
