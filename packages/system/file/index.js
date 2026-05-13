@@ -1,3 +1,7 @@
+// Copyright (c) 2017-2026 Onur Yaşar
+// Licensed under AGPL v3 + Commercial Exception
+// See LICENSE.txt
+
 const AWS = require('aws-sdk');
 const SPACES_ENDPOINT = process.env['SPACES_ENDPOINT']; 
 const SPACES_NAME = process.env['SPACES_NAME'];

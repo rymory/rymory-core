@@ -1,3 +1,9 @@
+'''
+// Copyright (c) 2017-2026 Onur Yaşar
+// Licensed under AGPL v3 + Commercial Exception
+// See LICENSE.txt
+'''
+
 from http import HTTPStatus
 import os
 from sendgrid import SendGridAPIClient # type: ignore
