@@ -1,59 +1,89 @@
+# Rymory — Open Identity Infrastructure
 
-# 📌 LEMORAS-CORE
-
-<!-- 🇹🇷 Bu proje [amaç] için geliştirilmiş bir [uygulama/kütüphane/araç].  
-🇬🇧 This project is a [application/library/tool] developed for [purpose]. -->
-
----
-
-<!-- ## 🚀 Özellikler / Features
-- 🇹🇷 Özellik 1  
-  🇬🇧 Feature 1  
-- 🇹🇷 Özellik 2  
-  🇬🇧 Feature 2  
-- 🇹🇷 Özellik 3  
-  🇬🇧 Feature 3   -->
+> **Author & Creator:** Onur Yaşar ([@onxorg](https://github.com/onxorg))
+> Built since 2017. All rights reserved.
 
 ---
 
-## 📥 Kurulum / Installation
+## What is Rymory?
 
-🇹🇷 Projeyi kendi bilgisayarınıza klonlamak için:  
-🇬🇧 To clone the project to your local machine:
+Rymory is an open identity infrastructure project — a federation-ready identity layer for distributed applications, multi-tenant ecosystems and modern digital trust.
 
-```bash
-git clone https://github.com/lemoras/lemoras-core.git
-cd lemoras-core
+It is **not a concept**. The core identity engine has been in active development since 2017, evolving through multiple production iterations. What you see here is that infrastructure, opened.
+
+### Core capabilities
+
+- **Federated SSO** — one identity, many applications, cross-domain session propagation
+- **JWT HS512 sessions** — short-lived tokens, refresh chains, passkey/security-key support
+- **Role-based access control** — six-tier hierarchy embedded directly in JWT claims
+- **Multi-tenant isolation** — appId + merchantId + projectId scoping at every layer
+- **Brute-force protection** — progressive lockout (3 → 6 → 9 attempts), account lock propagation
+- **Multi-language** — EN, TR, RU, ES, FR, ET, IT, PL built in
+- **Go backend** — modular package architecture (authenticate, account, role, project, member, validation)
+
+---
+
+## Architecture
+
+```
+id.rymory.org          ← single sign-on entry point
+      │
+      ├── notes.lemoras.com
+      ├── drive.lemoras.com
+      ├── [any third-party app]
+      │
+account.rymory.org     ← account management
 ```
 
-## 📄 Lisans / License
+Identity lives in Rymory. Services live anywhere. The protocol is the product.
 
-🇹🇷 Bu proje Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0) lisansı altındadır.
+---
 
-✅ İnceleme ve kişisel/akademik kullanım serbesttir.
+## Repository Structure
 
-❌ Ticari kullanım yasaktır.
+```
+rymory-core/           ← Go identity gateway (authenticate, account, role, project)
+rymory-spec/           ← Protocol specification and RFC documents
+rymory-ui/             ← Reference frontend implementation
+```
 
-🇬🇧 This project is licensed under the Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)
+---
 
-✅ Allowed for review and personal/academic use.
+## License
 
-❌ Commercial use is prohibited.
+This project is licensed under **GNU AGPL v3** with a **Commercial License Exception**.
 
+| Use case | License |
+|---|---|
+| Personal / academic / open source (AGPL-compliant) | Free — AGPL v3 |
+| Commercial product or SaaS without source disclosure | Paid — contact author |
 
-Daha fazla bilgi için / More info: [LICENSE](./LICENSE.txt)
+See [LICENSE.txt](./LICENSE.txt) for full terms.
 
+For commercial licensing: **onxorg@proton.me**
 
-## 🙌 Katkıda Bulunma / Contributing
+---
 
-🇹🇷 Pull request’lere ve önerilere açığım. Büyük değişiklikler için önce tartışma başlatmanız önerilir.
-🇬🇧 Pull requests and suggestions are welcome. For major changes, please open a discussion first.
+## Status
 
+Rymory is currently a project under active development by its sole author.
+Long-term governance goal: independent foundation model.
 
-## ✨ İletişim / Contact
+> *"Infrastructure this critical should be owned by the community, not a single company."*
 
-Yazar / Author : [\[Onur Yasar\]](https://onuryasar.org)
+---
 
-GitHub: [\[onxorg\]](https://github.com/onxorg)
+## Author
 
-E-Posta / Email: \[onxorg@proton.me\]
+**Onur Yaşar**
+Sole creator and author since 2017.
+
+- GitHub: [@onxorg](https://github.com/onxorg)
+- Email: onxorg@proton.me
+- Web: [rymory.org](https://rymory.org)
+- Trademarks: "Rymory" and "Lemoras" are registered with TÜRKPATENT
+
+---
+
+*© 2017–2026 Onur Yaşar. All rights reserved.*
+*"Rymory" is a trademark of Onur Yaşar.*

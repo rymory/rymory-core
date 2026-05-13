@@ -1,34 +1,87 @@
-Copyright (c) 2025 Onur Yasar
+RYMORY IDENTITY INFRASTRUCTURE
+Copyright (c) 2017–2026 Onur Yaşar <onxorg@proton.me>
+All rights reserved.
 
-🇹🇷 Bu proje CC BY-NC 4.0 lisansı altındadır.  
-Yazar: Onur Yasar
-E-Posta: onxorg@proton.me
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PART I — OPEN SOURCE LICENSE (GNU AGPL v3)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-🇬🇧 This project is licensed under the CC BY-NC 4.0 license.  
-Author: Onur Yasar
-Email: onxorg@proton.me
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
 
-Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
 
-🇹🇷 TÜRKÇE / TURKISH:
-Bu yazılım aşağıdaki lisans koşulları altında lisanslanmıştır:
+You should have received a copy of the GNU Affero General Public
+License along with this program. If not, see:
+<https://www.gnu.org/licenses/agpl-3.0.html>
 
-- Atıf (BY): Bu yazılımı kullanan herkes, orijinal yazarı [Onur Yasar] olarak belirtmek zorundadır.
-✅ - Ticari Olmayan (NC): Bu yazılım yalnızca kişisel, akademik veya ticari olmayan amaçlarla kullanılabilir.
-❌ - Ticari kullanım, satma, dağıtma veya herhangi bir ticari ürüne/hizmete dahil etme yasaktır.
-❌ - Yazılım, yazarın önceden yazılı izni olmadan değiştirilemez veya yeniden dağıtılamaz.
+KEY REQUIREMENT UNDER AGPL v3:
+If you run a modified version of this software as a network service
+(SaaS, hosted API, identity provider, etc.), you must make the
+complete source code of your modified version available to users
+of that service under the same AGPL v3 license.
 
-Bu yazılım "olduğu gibi" sağlanmaktadır, hiçbir garanti verilmez.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PART II — COMMERCIAL LICENSE EXCEPTION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-🇬🇧 ENGLISH / İNGİLİZCE:
-This software is licensed under the following terms:
+If you wish to use this software in a commercial product or service
+WITHOUT complying with the AGPL v3 source-disclosure requirements,
+you must obtain a separate Commercial License from the author.
 
-- Attribution (BY): Anyone using this software must credit the original author [Onur Yasar].
-✅ - NonCommercial (NC): This software may only be used for personal, academic, or other non-commercial purposes.
-❌ - Commercial use, selling, redistribution, or inclusion in any commercial product/service is strictly prohibited.
-❌ - The software may not be modified or redistributed without prior written permission from the author.
+Commercial use includes but is not limited to:
+  • Embedding this software in a proprietary product or service
+  • Offering this software as a hosted/SaaS service without
+    disclosing your source modifications
+  • Using this software internally in a for-profit organization
+    without contributing modifications back
 
-This software is provided "as is", without any warranties.
+To obtain a Commercial License, contact:
+  Onur Yaşar
+  E-mail : onxorg@proton.me
+  Web    : https://rymory.org
 
-For the full legal text, see:
-https://creativecommons.org/licenses/by-nc/4.0/
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PART III — ATTRIBUTION & AUTHORSHIP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+This project was conceived, designed and built solely by
+Onur Yaşar, starting in 2017. The identity infrastructure,
+federation architecture, multi-tenant role system and all
+associated protocols are original works of authorship.
+
+Any use of this software, in whole or in part, must retain
+this copyright notice and attribution.
+
+Trademark notice:
+  "Rymory", "Lemoras" and associated logos are trademarks
+  of Onur Yaşar and may not be used without written permission.
+  Trademark registrations filed with the Turkish Patent and
+  Trademark Office (TÜRKPATENT).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PART IV — TÜRKÇE ÖZET / TURKISH SUMMARY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Bu yazılım GNU AGPL v3 lisansı ve Ticari Lisans İstisnası
+çerçevesinde lisanslanmıştır.
+
+Açık kaynak kullanım:
+  Kişisel, akademik veya AGPL v3 koşullarına uyan açık
+  kaynak projelerde özgürce kullanılabilir. Ağ servisi
+  olarak sunuluyorsa kaynak kod açıklanmak zorundadır.
+
+Ticari kullanım:
+  Ticari ürün veya hizmetlerde kullanım için yazardan
+  ayrı bir Ticari Lisans alınması zorunludur.
+
+Tüm haklar saklıdır. Telif hakkı 2017–2026 Onur Yaşar.
+"Rymory" ve "Lemoras" isimleri TÜRKPATENT'e tescil
+başvurusu yapılmış ticari markalardır.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
