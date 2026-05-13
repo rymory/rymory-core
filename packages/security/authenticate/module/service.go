@@ -2,6 +2,11 @@
 // Licensed under AGPL v3 + Commercial Exception
 // See LICENSE.txt
 
+// https://github.com/rymory/rymory-core
+// rymory.org 
+// onuryasar.org
+// onxorg@proton.me 
+
 package authenticate
 
 import (
@@ -14,8 +19,8 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/google/uuid"
 	"github.com/jinzhu/gorm"
-	u "github.com/lemoras/goutils/api"
-	d "github.com/lemoras/goutils/db"
+	u "github.com/rymory/goutils/api"
+	d "github.com/rymory/goutils/db"
 	"golang.org/x/crypto/bcrypt"
 )
 

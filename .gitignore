@@ -1,5 +1,11 @@
-# If you prefer the allow list template instead of the deny list, see community template:
-# https://github.com/github/gitignore/blob/main/community/Golang/Go.AllowList.gitignore
+# Copyright (c) 2017-2026 Onur Yaşar
+# Licensed under AGPL v3 + Commercial Exception
+# See LICENSE.txt
+
+# https://github.com/rymory/rymory-core
+# rymory.org 
+# onuryasar.org
+# onxorg@proton.me 
 #
 # Binaries for programs and plugins
 *.exe

@@ -1,6 +1,6 @@
 # Rymory — Open Identity Infrastructure
 
-> **Author & Creator:** Onur Yaşar ([@onxorg](https://github.com/onxorg))
+> **Author & Creator:** Onur Yaşar ([@onurid](https://github.com/onurid))
 > Built since 2017. All rights reserved.
 
 ---
@@ -78,7 +78,7 @@ Long-term governance goal: independent foundation model.
 **Onur Yaşar**
 Sole creator and author since 2017.
 
-- GitHub: [@onxorg](https://github.com/onxorg)
+- GitHub: [@onurid](https://github.com/onurid)
 - Email: onxorg@proton.me
 - Web: [rymory.org](https://rymory.org)
 - Trademarks: "Rymory" and "Lemoras" are registered with TÜRKPATENT

@@ -5,12 +5,10 @@ use (
 	./packages/security/account/module
 	./packages/security/authenticate/module
 	./packages/security/role/module
+	./packages/security/ticket/module
 	./packages/security/validation/module
 	./packages/system/init/module
 	./packages/system/member/module
 	./packages/system/project/module
 	./packages/system/zombie/module
-	./packages/security/ticket/module
 )
-
-

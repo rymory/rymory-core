@@ -4,8 +4,8 @@ require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/google/uuid v1.6.0
 	github.com/jinzhu/gorm v1.9.16
-	github.com/lemoras/goutils/api v1.0.7
-	github.com/lemoras/goutils/db v1.0.2
+	github.com/rymory/goutils/api v1.0.8
+	github.com/rymory/goutils/db v1.0.5
 	golang.org/x/crypto v0.33.0
 // golang.org/x/crypto v0.41.0 // indirect
 )

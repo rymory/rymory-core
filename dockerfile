@@ -2,6 +2,11 @@
 # Licensed under AGPL v3 + Commercial Exception
 # See LICENSE.txt
 
+# https://github.com/rymory/rymory-core
+# rymory.org 
+# onuryasar.org
+# onxorg@proton.me 
+
 
 FROM golang:1.25-alpine AS builder
 

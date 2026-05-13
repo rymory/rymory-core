@@ -2,6 +2,11 @@
 // Licensed under AGPL v3 + Commercial Exception
 // See LICENSE.txt
 
+// https://github.com/rymory/rymory-core
+// rymory.org 
+// onuryasar.org
+// onxorg@proton.me 
+
 package initialize
 
 import (
@@ -13,8 +18,8 @@ import (
 	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/bcrypt"
 
-	u "github.com/lemoras/goutils/api"
-	d "github.com/lemoras/goutils/db"
+	u "github.com/rymory/goutils/api"
+	d "github.com/rymory/goutils/db"
 )
 
 type Account struct {

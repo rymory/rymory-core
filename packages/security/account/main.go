@@ -2,12 +2,17 @@
 // Licensed under AGPL v3 + Commercial Exception
 // See LICENSE.txt
 
+// https://github.com/rymory/rymory-core
+// rymory.org 
+// onuryasar.org
+// onxorg@proton.me 
+
 package main
 
 import (
 	"account"
 
-	u "github.com/lemoras/goutils/api"
+	u "github.com/rymory/goutils/api"
 )
 
 // Main forwarding to Hello

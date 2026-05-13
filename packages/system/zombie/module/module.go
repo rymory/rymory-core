@@ -2,10 +2,15 @@
 // Licensed under AGPL v3 + Commercial Exception
 // See LICENSE.txt
 
+// https://github.com/rymory/rymory-core
+// rymory.org 
+// onuryasar.org
+// onxorg@proton.me 
+
 package zombie
 
 import (
-	u "github.com/lemoras/goutils/api"
+	u "github.com/rymory/goutils/api"
 )
 
 type Request struct {

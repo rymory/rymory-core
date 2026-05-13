@@ -2,6 +2,11 @@
 // Licensed under AGPL v3 + Commercial Exception
 // See LICENSE.txt
 
+// https://github.com/rymory/rymory-core
+// rymory.org 
+// onuryasar.org
+// onxorg@proton.me 
+
 const AWS = require('aws-sdk');
 const SPACES_ENDPOINT = process.env['SPACES_ENDPOINT']; 
 const SPACES_NAME = process.env['SPACES_NAME'];
